@@ -1,0 +1,10 @@
+{
+    "watch": [
+      "assets/css/*.css",
+      "assets/js/*.js",
+      "*.html"
+    ],
+    "ext": "html,css,js",
+    "ignore": ["node_modules/*"],
+    "verbose": true
+  }
