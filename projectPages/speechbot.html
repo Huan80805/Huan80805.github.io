@@ -1,0 +1,36 @@
+<h1 class="project-title">Speech Bot (Course Project)</h1>
+                
+<div class="about-text">
+    <h2 class="h3">Description </h2>
+    <p>
+        A voice and gesture-controlled robot built on Jetson Nano 2GB that interacts with users through speech and hand gestures.<br/>
+        The robot combines lightweight ASR model, openai's conversation API, google's TTS package, and hand pose detection to create an interactive assistant that can chat, play music, check weather, and tell time.
+        You can find <a class="inline-ref" href="https://github.com/Huan80805/2022NMlab_final/tree/master">our code here</a>
+    </p>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/speechbot/architecture.jpg" alt="" loading="lazy">
+            <figcaption>The flowchart of our system (expand to see full figure)</figcaption>
+        </figure>
+    </div>
+    <h2 class="h3">Features</h2>
+    <h2 class="h4">Speech Interaction</h2>
+    <p>Our robot can understand and respond through natural speech. We use lightweight ASR models (deployed with TensorRT) to convert voice into text (to speed up inference, we used Google's ASR service for demo), process your requests through OpenAI's conversation API, and respond using text-to-speech synthesis.</p>
+
+    <h2 class="h4">Music Control</h2>
+    <p>We support hands-free music playback with both voice and gesture controls. You can ask the robot to play any song from YouTube, and control the playback using simple hand gestures. The system recognizes six different hand positions - use a "peace" sign to pause, "pan" gesture to play, "stop" gesture to end playback, and "fist" or "OK" gestures to adjust volume. This feature is especially useful when music is playing and voice commands might be hard to detect.</p>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/speechbot/handpose.png" alt="" loading="lazy">
+            <figcaption>Supported gestures to control music</figcaption>
+        </figure>
+    </div>
+    <h2 class="h4">Smart Assistant Functions</h2>
+    <p>We also support some other voice-controled functionalities, including weather-checkintg, and time-telling. The weather function activates when you mention keywords like "天氣" or "weather," after which you can specify any city. The robot will instantly crawl web data to get the weather</p>
+    
+    
+    <h2 class="h3">Demo Video</h2>
+    <div class="image-gallery">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/asU2DoZuJrI?si=8hrunGnrILh1saiF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</div>

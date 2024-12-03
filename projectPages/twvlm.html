@@ -1,0 +1,45 @@
+<h1 class="project-title">Taiwan visual-language model 70B (ongoing project)</h1>
+                
+<div class="about-text">
+    <h2 class="h3">Description </h2>
+    <p>
+        We continually pre-trained ViT-L + Llama3-Taiwan-70B (70B) grounded in Taiwanese culture. 
+        <br/> Our pre-training data includes image-txt pairs, and image-text-interleaved entries. 50M images and 3B text tokens intotal.
+        <br/> We followed LLaVA-style architecture, where images are projected with vision encoder and concatenated with language embeddings.
+    During development, we discovered that the model maintains instruction-following capabilities even without explicit instruction tuning. 
+    We attribute this behavior to Taiwan Llama’s inherent instruction-aligned nature from its pre-training. Our following work will conduct visual instruction tuning and more exhuastive evaluation.
+    </p>
+    <h2 class="h3">Demo conversations</h2>
+    <p>Below we show some conversations with our model. As you can see, the model can recognize objects in the images, and answer the questions accordingly</p>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/twvlm/bubble-tea.png" alt="dashboard" loading="lazy">
+            <figcaption>&lt;Prompt&gt;: where does this food come from?<br/>
+                &lt;Response&gt;: Bubble tea is Taiwan's popular food
+            </figcaption>
+        </figure>
+        <figure class="gallery-figure">
+            <img src="assets/images/twvlm/castle.png" alt="dashboard" loading="lazy">
+            <figcaption>&lt;Prompt&gt;: Describe what's in the image?<br/>
+                &lt;Response&gt;: A large castle is covered in snow as seen from a tree
+            </figcaption>
+        </figure>
+    </div>
+
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/twvlm/notre-dame.png" alt="dashboard" loading="lazy">
+            <figcaption>&lt;Prompt&gt;: What's this building?<br/>
+                &lt;Response&gt;: Notre Dame de Paris
+            </figcaption>
+        </figure>
+        <figure class="gallery-figure">
+            <img src="assets/images/twvlm/waterloo.png" alt="dashboard" loading="lazy">
+            <figcaption>&lt;Prompt&gt;: Where can I see this logo?<br/>
+                &lt;Response&gt;: University of Waterloo is at the downtown of Canada, Ontario.
+            </figcaption>
+        </figure>
+    </div>
+    
+    <p>This project was collaborative work with <a class="inline-ref" href="https://b10815061.github.io">Yu-An Su</a></p>
+</div>

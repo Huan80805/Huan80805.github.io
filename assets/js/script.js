@@ -5,16 +5,12 @@
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
-
-
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
-
+sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); elementToggleFunc(this)});
 
 // minipage variables
 const minipageItem = document.querySelectorAll("[data-minipage-item]");
@@ -112,8 +108,6 @@ for (let i = 0; i < filterBtn.length; i++) {
   });
 
 }
-
-
 
 // contact form variables
 const form = document.querySelector("[data-form]");

@@ -1,0 +1,67 @@
+<h1 class="project-title">GenAI Safety Assessment</h1>
+                
+<div class="about-text">
+    <h2 class="h3">Description </h2>
+    <p>
+        This is a project funded by Taiwan's National Institute of Cyber Security.
+        <br/>In this project, we aimed to <b>evaluate safety and security of Taiwanese LLMs</b>, including TAIDE and Taiwan-LLM.
+        <br/>Our framework consists of two main components, building safeguard models and automatic redteaming.
+    </p>
+    <h2 class="h3">Safeguard Models</h2>
+    <p>The goal of safeguard models is to accurately flag harmful content in LLMs' generations. 
+        From preliminary experiment, we discovered that opensourced safeguard model, including LlamaGuard and ShieldLM, are insensitive to cultural-specific taboos and local expressions.
+        To build a safeguard model for Taiwanese LLMs, we collected data from three sources:
+    </p>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/genaiSafety/sg1.png" alt="dashboard" loading="lazy">
+            <figcaption>1. toxic comments crawled from Taiwanese online forums, or translated from <a class="inline-ref" href="https://arxiv.org/abs/2203.09509">ToxiGen</a>
+            </figcaption>
+        </figure>
+    </div>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/genaiSafety/sg2.png" alt="dashboard" loading="lazy">
+            <figcaption>2. Existing Human-LLM conversation data, translated into Traditional Chinese. Source includes <a class="inline-ref" href="https://huggingface.co/datasets/Anthropic/hh-rlhf">Anthropic's hh-rlhf </a>
+                and <a class="inline-ref" href="https://github.com/thu-coai/ShieldLM">ShieldLM training data.</a>
+            </figcaption>
+        </figure>
+    </div>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/genaiSafety/sg3.png" alt="dashboard" loading="lazy">
+            <figcaption>3. We used (1) manully-designed prompts and (2) existing attack prompts to prompt Taiwanese LLMs and used ShiledLM and GPT-4 to label responses.
+            </figcaption>
+        </figure>
+    </div>
+    <p>Our model performed better than LlamaGuard by F1-score 0.14. on flagging Taiwanese LLMs' generations, see some demo examples below</p>
+    <div class="image-gallery">
+        <video width="80%" controls>
+            <source src="assets/images/genaiSafety/sg_demo.mov" type="video/mp4">
+        </video>
+    </div>
+    <h2 class="h3">Automatic Redteaming</h2>
+    <p>The goal of automatic redteaming is to probe LLMs' vulnerabilities. We conducted two attack methods.</br>(Examples are redacted for safety issues)</p>
+    <h2 class="h4">Black-box redteaming</h2>
+    <p>
+        To attack a model we have no access to, we utilized RL to fine-tune an attacker for attacking victim. The reward is the given by our safeguard model.
+        Throughout the process, the attacker can be guided to generate more effective attack prompts
+    </p>
+    <h2 class="h4">White-box redteaming</h2>
+    <p>
+        Having access to model's gradient, we followed GCG to optimize adversarial suffix. The objective is to manipulate victim LLM to generate specific harmful string.
+        On top of GCG's original objective, we additionally incorporated language modeling loss in order to generate sensible suffix.
+    </p>
+    <div class="image-gallery">
+        <figure class="gallery-figure">
+            <img src="assets/images/genaiSafety/red_black.png" alt="dashboard" loading="lazy">
+            <figcaption>The framework of black-box red-teaming
+            </figcaption>
+        </figure>
+        <figure class="gallery-figure">
+            <img src="assets/images/genaiSafety/red_white.png" alt="dashboard" loading="lazy">
+            <figcaption>The framework of white-box red-teaming
+            </figcaption>
+        </figure>
+    </div>
+</div>

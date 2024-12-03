@@ -6,23 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tsung-Huan</title>
-
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="./assets/images/logo.svg" type="image/x-icon">
-
+  <link rel="shortcut icon" href="./assets/images/avatar-white.svg" type="image/x-icon">
   <!--
     - custom css link
   -->
   <link rel="stylesheet" href="./assets/css/style.css">
-
   <!--
     - google font link
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -52,8 +50,7 @@
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
+          <span class="info_more-btn-text">Show Contacts</span>
           <ion-icon name="chevron-down"></ion-icon>
         </button>
 
@@ -78,35 +75,6 @@
             </div>
 
           </li>
-
-          <!-- <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="tel:+12133522795" class="contact-link">+1 (213) 352-2795</a>
-            </div>
-
-          </li> -->
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="2000-09-01">Sept. 01, 2000</time>
-            </div>
-
-          </li>
-
           <li class="contact-item">
 
             <div class="icon-box">
@@ -126,10 +94,9 @@
         <div class="separator"></div>
 
         <ul class="social-list">
-
           <li class="social-item">
-            <a href="https://www.x.com" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
+            <a href="https://scholar.google.com/citations?user=tKhORb8AAAAJ&hl=en" class="social-link">
+              <i class="fa fa-graduation-cap"></i>
             </a>
           </li>
           <li class="social-item">
@@ -172,10 +139,6 @@
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Projects</button>
           </li>
 
@@ -183,9 +146,9 @@
             <button class="navbar-link" data-nav-link>Blog</button>
           </li>
 
-          <li class="navbar-item">
+          <!-- <li class="navbar-item">
             <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
+          </li> -->
 
         </ul>
 
@@ -199,53 +162,96 @@
         <header>
           <h2 class="h2 article-title">About me</h2>
         </header>
-
         <section class="about-text">
-          <p>
-            I'm a research assistant from Taiwan. My research interest lies in <b>Machine Learning</b> and <b>Natural Language Processing</b>.
-            I'm particularly studying adversarial attacks and safety alignment on Large Language Models.
+          <p style="color: --dark-brown-gray; font-size: 16px;">
+            I'm a research assistant at Academia Sinica in Taiwan, currently under the supervision of <a class="inline-ref" href="https://homepage.iis.sinica.edu.tw/pages/lwku/contact_en.html">Dr. Lun-Wei Ku</a>.
+            <br/>My research interest lies in <b>Natural Language Processing</b> and <b>Machine Learning</b>.
+            I'm particularly interested in AI safety. My past work includes building safeguard models, automatic red-teaming, and defending fine-tuning attacks.
           </p>
+          <header style="display: flex; align-items: center; margin-bottom: 20px;">
+            <a href="./assets/resume.pdf" class="btn" style="font-size: 14px; margin-left: 0px; background: var(--light-light-blue); color:--eerie-black-1">Resume</a>
+          </header>
         </section>
-
-
         <!--
-          - news
+          - Experience
         -->
 
-        <section class="news">
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Education</h3>
+          </div>
+        
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">National Taiwan University</h4>
+              <p class="h4 timeline-item-title" style="text-transform: none;">Bachelor of Science in Electrical Engineering</p>
+              <span>September 2018 - June 2022</span>
+              
+            </li>
+          </ol>
 
-          <h3 class="h3 section-title">News</h3>
 
-          <ul class="news-list">
-            <li class="news-item">
+        </section>
 
-              <div class="news-icon-box">
-                <img src="./assets/images/NeurIPS_logo.png" alt="neurips" width="60">
-              </div>
+        <section class="timeline">
 
-              <div class="news-content-box">
-                <h4 class="h4 news-item-title">October, 2024</h4>
-                <p class="news-item-text">
-                  Our paper is accepted by NeurIPS 2024 SafeGenAI workshop
-                </p>
-              </div>
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <img src="assets/images/work.svg" style="max-width: 50%;" loading="lazy">
+            </div>
+            <h3 class="h3">Work Experience</h3>
+          </div>
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Research Assistant @ Academia Sinica</h4>
+              <span>April 2023 - Present</span>
+              <ul class="dot-list">
+                <li>Taiwan VLM 70B project<a class="inline-ref" href="./project.html?name=twvlm"> [Project Page]</a></li>
+                <li>GenAI safety assessment project<a class="inline-ref" href="./project.html?name=genaiSafety"> [Project Page]</a></li>
+              </ul>
             </li>
 
-            <li class="news-item">
-
-              <div class="news-icon-box">
-                <img src="./assets/images/as-logo.png" alt="academia sinica" width="60">
-              </div>
-
-              <div class="news-content-box">
-                <h4 class="h4 news-item-title">June, 2023</h4>
-                <p class="news-item-text">
-                  I will be joining NLPSA lab @ Academia Sinica as a research assistant
-                </p>
-              </div>
-
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Engineering Intern (Computer Vision) @ Applied Materials</h4>
+              <span>March 2022 - September 2022</span>
+              <ul class="dot-list">
+                <li>Product defect detection</li>
+              </ul>
             </li>
-          </ul>
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <img src="assets/images/teaching.svg" style="max-width: 50%;" loading="lazy">
+            </div>
+            <h3 class="h3">Teaching</h3>
+          </div>
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Laboratory Instructor @ Chung Gung University</h4>
+              <p class="h4 timeline-item-title" style="text-transform: none;">Advanced Natural Language Processing</p>
+              <span>March 2024, October 2024</span>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Teaching Assistant @ ChungHwa Telecom Training Inst.</h4>
+              <p class="h4 timeline-item-title" style="text-transform: none;">Large Language Models (theory and applications)<p>
+              <span>February 2024 - September 2024</span>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Laboratory Instructor @ MediaTek incor.</h4>
+              <p class="h4 timeline-item-title" style="text-transform: none;">Natural Language Processing</p>
+              <span>July 2024 - August 2024</span>
+            </li>
+          </ol>
 
         </section>
 
@@ -361,11 +367,6 @@
             <a class="authors">Tzuching Lin*, <b>Tsung-Huan Yang*</b>, Ko-Wei Huang, Hong-Yu Li, I-Bin Liao, Yung-Hui Li, and Lun-Wei Ku.</a>
             
             <a class="pub-info">PrePrint, submitted to <i>ACL ARR 2024 October Cycle.</i></a>
-      
-            <div class="button-group">
-              <a href="#" class="btn">ArXiv</a>
-              <a href="#" class="btn">PDF</a>
-            </div>
           </div>
           <div class="publication-item">
             <span class="journal-tag">Workshop</span>
@@ -376,8 +377,7 @@
             <a class="pub-info">in <i>NeurIPS Safe Generative AI Workshop, 2024.</i></a>
       
             <div class="button-group">
-              <a href="#" class="btn">ArXiv</a>
-              <a href="#" class="btn">PDF</a>
+              <a href="https://openreview.net/forum?id=SJCirqo9MK" class="btn">OpenReview</a>
             </div>
           </div>
           <div class="publication-item">
@@ -387,90 +387,17 @@
             <a class="authors">Tzu-Quan Lin, <b>Tsung-Huan Yang</b>, Chun-Yao Chang, Kuang-Ming Chen, Tzu-hsun Feng, Hung-yi Lee, and Hao Tang.</a>
             <a class="pub-info">PrePrint</i></a>
             <div class="button-group">
-              <a href="#" class="btn">ArXiv</a>
-              <a href="#" class="btn">PDF</a>
+              <a href="https://arxiv.org/abs/2211.09949" class="btn">ArXiv</a>
             </div>
           </div>
       </article>
 
 
       <!--
-        - #RESUME
+        - #SKILLS
       -->
 
-      <article class="resume" data-page="resume">
-
-        <header style="display: flex; align-items: center; margin-bottom: 20px;">
-          <h2 class="h2">Resume</h2>
-          <a href="#" class="btn" style="font-size: 18px; margin-left: 10px; background: var(--light-light-blue);">PDF</a>
-        </header>
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Education</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">National Taiwan University</h4>
-
-              <span>September 2018 - June 2022</span>
-
-              <p class="timeline-text">Bachelor of Science in Electrical Engineering</p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-
-            <h3 class="h3">Work Experience</h3>
-          </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Research Assistant @ Academia Sinica</h4>
-
-              <span>April 2023 - Present</span>
-
-              <ul class="dot-list">
-                <li>Pre-train a large-scale VLM, Taiwan-VLM-70B<a class="inline-ref" href="#"> [Project Page]</a></li>
-                <li>LLM safety assessment<a class="inline-ref" href="#"> [Project Page]</a></li>
-                <li>Server Manager</li>
-              </ul>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Engineering Intern (Computer Vision) @ Applied Materials</h4>
-
-              <span>March 2022 - September 2022</span>
-
-              <ul class="dot-list">
-                <li>Detect product defects from high-resolution images of manufactured eyepieces</li>
-              </ul>
-
-            </li>
-          </ol>
-
-        </section>
-
+      <!-- <article class="skills" data-page="skills"> -->
         <!-- <section class="skill">
 
           <h3 class="h3 skills-title">My skills</h3>
@@ -492,8 +419,7 @@
           </ul>
 
         </section> -->
-
-      </article>
+      <!-- </article> -->
 
       <!--
         - #Projects
@@ -514,15 +440,11 @@
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Web design</button>
+              <button data-filter-btn>Artificial Intelligence</button>
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web development</button>
+              <button data-filter-btn>Web Programming</button>
             </li>
 
           </ul>
@@ -546,15 +468,11 @@
               </li>
 
               <li class="select-item">
-                <button data-select-item>Web design</button>
+                <button data-select-item>Artificial Intelligence</button>
               </li>
 
               <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web development</button>
+                <button data-select-item>Web Programming</button>
               </li>
 
             </ul>
@@ -563,182 +481,61 @@
 
           <ul class="project-list">
 
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
+            <li class="project-item  active" data-filter-item data-category="artificial intelligence">
+              <a href="./project.html?name=twvlm">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-
-                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                  <img src="./assets/images/twvlm/llama-in-tw.jpeg" alt="TW-vlm" loading="lazy">
                 </figure>
-
-                <h3 class="project-title">Finance</h3>
-
-                <p class="project-category">Web development</p>
-
+                <h3 class="project-title">Taiwan VLM-70B</h3>
+                <!-- <p class="project-category">Web development</p> -->
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
+            <li class="project-item  active" data-filter-item data-category="artificial intelligence">
+              <a href="./project.html?name=genaiSafety">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-
-                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                  <img src="./assets/images/genaiSafety/thumbnail.jpeg" alt="GenAI safety" loading="lazy">
                 </figure>
-
-                <h3 class="project-title">Orizon</h3>
-
-                <p class="project-category">Web development</p>
-
+                <h3 class="project-title">GenAI Safety Assessment</h3>
+                <!-- <p class="project-category">Web development</p> -->
               </a>
             </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
+            <li class="project-item  active" data-filter-item data-category="artificial intelligence">
+              <a href="./project.html?name=speechbot">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-
-                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                  <img src="./assets/images/speechbot/product.png" alt="speech bot" loading="lazy">
                 </figure>
-
-                <h3 class="project-title">Fundo</h3>
-
-                <p class="project-category">Web design</p>
-
+                <h3 class="project-title">Speech Bot</h3>
               </a>
             </li>
-
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="#">
-
+            <li class="project-item  active" data-filter-item data-category="web programming">
+              <a href="./project.html?name=wp2022">
                 <figure class="project-img">
                   <div class="project-item-icon-box">
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
-
-                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
+                  <img src="./assets/images/wp2022/thumbnail.png" alt="" loading="lazy">
                 </figure>
-
-                <h3 class="project-title">Brawlhalla</h3>
-
-                <p class="project-category">Applications</p>
-
+                <h3 class="project-title">Let's hang out!</h3>
               </a>
             </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
-                </figure>
-
-                <h3 class="project-title">DSM.</h3>
-
-                <p class="project-category">Web design</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web design">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">MetaSpark</h3>
-
-                <p class="project-category">Web design</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Summary</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-8.jpg" alt="task manager" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Task Manager</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Arrival</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
           </ul>
-
         </section>
 
       </article>
 
-
-
-
-
       <!--
         - #BLOG
       -->
-
       <article class="blog" data-page="blog">
 
         <header>
@@ -748,190 +545,51 @@
         <section class="blog-posts">
 
           <ul class="blog-posts-list">
-
             <li class="blog-post-item">
               <a href="#">
-
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
+                  <img src="./assets/images/blogs/rocling.jpg" alt="" loading="lazy">
                 </figure>
-
                 <div class="blog-content">
-
                   <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
+                    <p class="blog-category">AI</p>
                     <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                    <time datetime="2024-11-04">Nov 4, 2024</time>
                   </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
+                  <h3 class="h3 blog-item-title">ROCLing</h3>
                   <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
+                    Prof. Heng Ji and Proj. Eduard Hovy's keynote talks were really inspiring. We should prioritize understanding the 'why' rather than looking into engineering solutions.
                   </p>
-
                 </div>
-
               </a>
             </li>
-
             <li class="blog-post-item">
               <a href="#">
-
                 <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
+                  <img src="./assets/images/blogs/nicsPresent.jpg" alt="" loading="lazy">
                 </figure>
-
                 <div class="blog-content">
-
                   <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
+                    <p class="blog-category">AI</p>
                     <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
+                    <time datetime="2024-10-22">Oct 22, 2024</time>
                   </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
+                  <h3 class="h3 blog-item-title">Academic-Research Institute Exchange forum</h3>
                   <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
+                    Our work on LLM security was presented on the forum. Glad to be part of the GenAI Safety Assessment Project.
                   </p>
-
                 </div>
-
               </a>
             </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-                  <p class="blog-text">
-                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-                  <p class="blog-text">
-                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-                  <p class="blog-text">
-                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-                  <p class="blog-text">
-                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
           </ul>
-
         </section>
-
       </article>
-
-
-
-
 
       <!--
         - #CONTACT
       -->
 
-      <article class="contact" data-page="contact">
+      <!-- <article class="contact" data-page="contact">
 
         <header>
           <h2 class="h2 article-title">Contact</h2>
@@ -966,7 +624,7 @@
 
           </form>
 
-        </section>
+        </section> -->
 
       </article>
 
