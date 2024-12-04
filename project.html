@@ -92,10 +92,10 @@
         .gallery-figure {
             margin: 0;
             cursor: pointer;
-            aspect-ratio: 5/3;
             transition: transform 0.3s ease;
             overflow: hidden;
             max-width: 100%;
+            /* max-height: */
         }
         .gallery-figure:hover {
             transform: scale(1.05);
@@ -103,15 +103,14 @@
 
         .gallery-figure img {
             width: 100%;
-            max-height: 80%;
-            height: auto;
+            max-height: 35vh;
             object-fit: cover;
             border-radius: 16px;
         }
 
         .gallery-figure figcaption {
             text-align: center;
-            margin-top: 0px;
+            margin-top: 12px;
             color: var(--black);
             font-size: 12px;
         }
