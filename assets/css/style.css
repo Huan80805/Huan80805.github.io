@@ -351,7 +351,7 @@ main {
 .info-content .title {
   color: var(--dark-brown);
   background: var(--onyx);
-  font-size: var(--fs-8);
+  font-size: var(--fs-5);
   font-weight: var(--fw-300);
   width: max-content;
   padding: 3px 12px;
@@ -425,7 +425,8 @@ main {
 .contact-title {
   color: var(--dark-brown-gray);
   font-size: var(--fs-8);
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
+  font-weight: bold;
   margin-bottom: 2px;
 }
 
@@ -582,8 +583,9 @@ main {
 
 .pub-title {
   color: var(--dark-brown);
-  font-size: 14px;
-  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 7px;
   font-weight: 600;
   line-height: 1.4;
 }
@@ -591,7 +593,7 @@ main {
 .authors {
   color: var(--dark-brown);
   text-decoration: none;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   font-size: 14px
 
 }
@@ -605,14 +607,15 @@ main {
 .button-group {
   display: flex;
   gap: 10px;
-  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .btn {
-  padding: 6px 12px;
-  border: 1px solid var(--white-1);
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 8px 8px;
+  border: 1px solid var(--eerie-black-1);
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: bold;
   color: var(--dark-brown-gray);
   background: var(--white-1);
   text-decoration: none;
@@ -854,8 +857,9 @@ main {
 }
 
 .timeline-list span {
-  color: var(--vegas-gold);
+  color: var(--dark-brown-gray);
   font-weight: var(--fw-400);
+  font-style:oblique;
   line-height: 1.6;
 }
 
@@ -896,6 +900,7 @@ main {
   list-style-type: disc;
   position: relative;
   color: var(--dark-brown-gray);
+  margin-bottom: 7px;
 }
 .dot-list li::before {
   position: absolute;
@@ -1390,13 +1395,11 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .icon-box {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
     font-size: 18px;
   }
-
-
 
   /**
    * #MAIN
@@ -1650,7 +1653,7 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .contacts-list {
     grid-template-columns: 1fr 1fr;
-    gap: 30px 15px;
+    gap: 15px 15px;
   }
 
 
