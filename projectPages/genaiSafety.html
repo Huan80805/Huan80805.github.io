@@ -14,9 +14,8 @@
     </p>
     <div class="image-gallery">
         <figure class="gallery-figure">
-            <img src="assets/images/genaiSafety/sg1.png" alt="dashboard" loading="lazy">
-            <figcaption>1. toxic comments crawled from Taiwanese online forums, or translated from <a class="inline-ref" href="https://arxiv.org/abs/2203.09509">ToxiGen</a>
-            </figcaption>
+            <img src="assets/images/genaiSafety/pipeline.png" alt="dashboard" loading="lazy" style="width: 50%;">
+            <figcaption style="text-align: center;">1. Toxic comments crawled from Taiwanese online forums. This figure shows how we collected and labelled toxic commencts.</figcaption>
         </figure>
     </div>
     <div class="image-gallery">
@@ -30,24 +29,24 @@
     <div class="image-gallery">
         <figure class="gallery-figure">
             <img src="assets/images/genaiSafety/sg3.png" alt="dashboard" loading="lazy">
-            <figcaption>3. We used (1) manully-designed prompts and (2) existing attack prompts to prompt Taiwanese LLMs and used ShiledLM and GPT-4 to label responses.
+            <figcaption>3. We used (1) manully-designed prompts and (2) existing attack prompts to prompt Taiwanese LLMs and used ShiledLM, GPT-4, and LlamaGuard to automatically label responses.
             </figcaption>
         </figure>
     </div>
     <p>Our model performed better than LlamaGuard by F1-score 0.14. on flagging Taiwanese LLMs' generations, see some demo examples below</p>
-    <div style="display: grid; width: 80%; aspect-ratio: 560/315; overflow: hidden; grid-template-columns: 1fr; border-radius: 16px;">
+    <div style="display: grid; width: 80%; aspect-ratio: 560/315; overflow: hidden; grid-template-columns: 1fr; border-radius: 16px; margin-top: 20px; margin-bottom: 20px;">
         <video width="100%" controls>
             <source src="assets/images/genaiSafety/sg_demo.mov" type="video/mp4">
         </video>
     </div>
     <h2 class="h3">Automatic Redteaming</h2>
-    <p>The goal of automatic redteaming is to probe LLMs' vulnerabilities. We conducted two attack methods.</br>(Examples are redacted for safety issues)</p>
-    <h2 class="h4">Black-box redteaming</h2>
+    <p>In automatic redteaming, we aimed to probe LLMs' vulnerabilities through automatically generating adversarial attacks. We conducted two adversarial attacks under two different scenarios.</br>(Examples are redacted for safety issues)</p>
+    <h2 class="h4">Black-box attacks</h2>
     <p>
         To attack a model we have no access to, we utilized RL to fine-tune an attacker for attacking victim. The reward is the given by our safeguard model.
         Throughout the process, the attacker can be guided to generate more effective attack prompts
     </p>
-    <h2 class="h4">White-box redteaming</h2>
+    <h2 class="h4">White-box attacks</h2>
     <p>
         Having access to model's gradient, we followed GCG to optimize adversarial suffix. The objective is to manipulate victim LLM to generate specific harmful string.
         On top of GCG's original objective, we additionally incorporated language modeling loss in order to generate sensible suffix.
