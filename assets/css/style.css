@@ -424,6 +424,7 @@ section > article {
   /* font-style: italic; */
   font-family: "Newsreader", serif;
   color: var(--dark-brown-gray);
+  line-height: 1.25em;
 }
 
 .publication-authors {
@@ -432,6 +433,7 @@ section > article {
   font-weight: var(--fw-400);
   font-size: var(--fs-4);
   font-family: "Newsreader", serif;
+  line-height: 1.25em;
 }
 
 
