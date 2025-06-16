@@ -19,19 +19,24 @@
             min-height: 100vh;
             padding: 10px;
             animation: "fade 0.5s ease backwards";
-            width: '100%';
+            /* width: 100%; */
         }
 
         .h1,.h2,.h3{
             margin-bottom: 10px;
+            font-weight: var(--fw-600);
         }
 
         .h4{
             margin-bottom: 0px;
         }
+        .p{
+            font-size: var(--fs-8);
+            font-weight: var(--fw-300);
+        }
 
         .project-details {
-            background: var(--warm-beige);
+            background: var(--beige-white);
             border: 1px solid var(--light-beige);
             box-shadow: var(--shadow-1);
             z-index: 1;
@@ -43,9 +48,11 @@
 
         .project-title {
             position: relative;
-            font-size: 30px;
+            font-size: var(--fs-1);
+            font-weight: var(--fw-600);
             padding-bottom: 40px;
             text-align: center;
+            color: var(--eerie-black-1);
         }
 
         .project-title::after {
@@ -55,8 +62,8 @@
             left: 50%;
             transform: translateX(-50%);
             width: 30%;
-            height: 3px;
-            background: var(--text-gradient-blue);
+            height: 0.2em;
+            background: var(--moss-green);
             border-radius: 3px;
             margin-bottom: 20px;
         }
@@ -65,8 +72,8 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--light-light-blue);
-            color: var(--black);
+            background: var(--olive-green);
+            color: var(--beige-white);
             padding: 10px 20px;
             border-radius: 14px;
             margin-top: 20px;
@@ -175,6 +182,10 @@
         }
         @media (min-width:768px)  {
             .image-gallery { grid-template-columns: 1fr 1fr; }
+            .main {
+                max-width: 768px;
+                margin: auto;
+            }
         }
         @media (min-width:1024px)  {
             .image-gallery { grid-template-columns: 2 1fr; }

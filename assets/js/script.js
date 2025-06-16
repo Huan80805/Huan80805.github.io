@@ -1,75 +1,30 @@
 'use strict';
 
-
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 
-// sidebar variables
-const sidebar = document.querySelector("[data-sidebar]");
-const sidebarBtn = document.querySelector("[data-sidebar-btn]");
-
-// sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); elementToggleFunc(this)});
-
-// minipage variables
-const minipageItem = document.querySelectorAll("[data-minipage-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
-
-// modal toggle function
-const minipageModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
-
-// add click event to all modal items
-for (let i = 0; i < minipageItem.length; i++) {
-
-  minipageItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-minipage-thumbnail]").src;
-    modalImg.alt = this.querySelector("[data-minipage-thumbnail]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-minipage-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-minipage-text]").innerHTML;
-
-    minipageModalFunc();
-
-  });
-
-}
-
-// add click event to modal close button
-modalCloseBtn.addEventListener("click", minipageModalFunc);
-overlay.addEventListener("click", minipageModalFunc);
-
-
-
-// custom select variables
+// custom select variables for project filtering
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
 const selectValue = document.querySelector("[data-selecct-value]");
 const filterBtn = document.querySelectorAll("[data-filter-btn]");
 
-select.addEventListener("click", function () { elementToggleFunc(this); });
+if(select) {
+  select.addEventListener("click", function () { elementToggleFunc(this); });
 
-// add event in all select items
-for (let i = 0; i < selectItems.length; i++) {
-  selectItems[i].addEventListener("click", function () {
+  // add event in all select items
+  for (let i = 0; i < selectItems.length; i++) {
+    selectItems[i].addEventListener("click", function () {
 
-    let selectedValue = this.innerText.toLowerCase();
-    selectValue.innerText = this.innerText;
-    elementToggleFunc(select);
-    filterFunc(selectedValue);
+      let selectedValue = this.innerText.toLowerCase();
+      selectValue.innerText = this.innerText;
+      elementToggleFunc(select);
+      filterFunc(selectedValue);
 
-  });
+    });
+  }
 }
+
 
 // filter variables
 const filterItems = document.querySelectorAll("[data-filter-item]");
@@ -101,53 +56,69 @@ for (let i = 0; i < filterBtn.length; i++) {
     selectValue.innerText = this.innerText;
     filterFunc(selectedValue);
 
-    lastClickedBtn.classList.remove("active");
+    if (lastClickedBtn) {
+      lastClickedBtn.classList.remove("active");
+    }
     this.classList.add("active");
     lastClickedBtn = this;
 
   });
-
 }
 
-// contact form variables
-const form = document.querySelector("[data-form]");
-const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
+// contact form variables (如果未來要加回來可以保留)
+// const form = document.querySelector("[data-form]");
+// const formInputs = document.querySelectorAll("[data-form-input]");
+// const formBtn = document.querySelector("[data-form-btn]");
 
-// add event to all form input field
-for (let i = 0; i < formInputs.length; i++) {
-  formInputs[i].addEventListener("input", function () {
-
-    // check form validation
-    if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
-    } else {
-      formBtn.setAttribute("disabled", "");
-    }
-
-  });
-}
+// for (let i = 0; i < formInputs.length; i++) {
+//   formInputs[i].addEventListener("input", function () {
+//     if (form.checkValidity()) {
+//       formBtn.removeAttribute("disabled");
+//     } else {
+//       formBtn.setAttribute("disabled", "");
+//     }
+//   });
+// }
 
 
-
-// page navigation variables
+// New Page Navigation Logic for Scrolling
 const navigationLinks = document.querySelectorAll("[data-nav-link]");
-const pages = document.querySelectorAll("[data-page]");
+const sections = document.querySelectorAll("[data-page]");
 
-// add event to all nav link
-for (let i = 0; i < navigationLinks.length; i++) {
-  navigationLinks[i].addEventListener("click", function () {
+// Function to handle scroll events and update active nav link
+const scrollHandler = () => {
+  const scrollPosition = window.scrollY;
 
-    for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
-        pages[i].classList.add("active");
-        navigationLinks[i].classList.add("active");
-        window.scrollTo(0, 0);
-      } else {
-        pages[i].classList.remove("active");
-        navigationLinks[i].classList.remove("active");
-      }
+  sections.forEach(section => {
+    // 減去一個偏移量 (150px) 讓標題進入畫面中間時才觸發
+    if (scrollPosition >= section.offsetTop - 150 && scrollPosition < section.offsetTop + section.offsetHeight - 150) {
+      const currentId = section.id;
+      
+      navigationLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentId}`) {
+          link.classList.add('active');
+        }
+      });
     }
-
   });
-}
+};
+
+// Add scroll event listener
+window.addEventListener('scroll', scrollHandler);
+
+// Add click event to all nav links to handle smooth scroll (if CSS fails) and active state
+navigationLinks.forEach(link => {
+  link.addEventListener('click', (event) => {
+    // In case html scroll-behavior is not supported
+    // event.preventDefault();
+    // const targetId = link.getAttribute('href');
+    // document.querySelector(targetId).scrollIntoView({
+    //   behavior: 'smooth'
+    // });
+
+    // Instantly set active class on click
+    navigationLinks.forEach(nav => nav.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
