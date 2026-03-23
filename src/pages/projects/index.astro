@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/projects/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout title="Projects | Tsung-Huan Yang" description="Project case studies with dedicated pages">
+  <section class="page-hero">
+    <p class="eyebrow">Projects</p>
+    <h1>Selected work</h1>
+    <p class="lede">
+      Research projects, course work, and side builds. Each card opens into a full case-study page with process, images, and results.
+    </p>
+  </section>
+
+  <section class="project-grid">
+    {projects.map((project) => (
+      <ProjectCard
+        href={`/projects/${project.slug}`}
+        title={project.data.title}
+        summary={project.data.summary}
+        thumbnail={project.data.thumbnail}
+        tags={project.data.tags}
+        status={project.data.status}
+      />
+    ))}
+  </section>
+</BaseLayout>

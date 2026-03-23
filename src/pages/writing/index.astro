@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection("writing"))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Writing | Tsung-Huan Yang" description="Notes, posts, and math-friendly writing">
+  <section class="page-hero">
+    <p class="eyebrow">Writing</p>
+    <h1>Markdown and LaTeX-ready writing.</h1>
+    <p class="lede">
+      This section is scaffolded for quick notes, fuller essays, and reading notes. The collection already supports
+      math rendering through KaTeX.
+    </p>
+  </section>
+
+  <section class="writing-list">
+    {entries.map((entry) => (
+      <a class="writing-row" href={`/writing/${entry.slug}`}>
+        <div>
+          <p class="eyebrow">{entry.data.type}</p>
+          <h2>{entry.data.title}</h2>
+          <p>{entry.data.description}</p>
+        </div>
+        <div class="writing-row-meta">
+          <span>{entry.data.date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}</span>
+          <div class="tag-row">
+            {entry.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        </div>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

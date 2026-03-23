@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ShelfCard from "../components/shelf/ShelfCard.astro";
+import { getCollection } from "astro:content";
+
+const items = await getCollection("shelf");
+const current = items.filter((item) => item.data.status === "now");
+---
+
+<BaseLayout title="Shelf | Tsung-Huan Yang" description="Books, games, anime, films, and papers">
+  <section class="page-hero">
+    <p class="eyebrow">Shelf</p>
+    <h1>Current rotation and archive shelf.</h1>
+    <p class="lede">
+      This page is designed as a clean archive rather than a literal wooden bookshelf. It can hold books, anime,
+      films, games, and papers without collapsing into a novelty gimmick.
+    </p>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading">
+      <p class="eyebrow">Current rotation</p>
+      <h2>What is in progress right now.</h2>
+    </div>
+    <div class="shelf-grid">
+      {current.map((item) => <ShelfCard {...item.data} />)}
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading">
+      <p class="eyebrow">Archive shelf</p>
+      <h2>Favorite, finished, and revisit-worthy items.</h2>
+    </div>
+    <div class="shelf-grid">
+      {items.map((item) => <ShelfCard {...item.data} />)}
+    </div>
+  </section>
+</BaseLayout>

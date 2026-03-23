@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  creator: string;
+  type: string;
+  status: string;
+  note: string;
+  year?: string;
+}
+
+const { title, creator, type, status, note, year } = Astro.props;
+---
+
+<article class="shelf-card">
+  <div class="shelf-card-top">
+    <span class="tag">{type}</span>
+    <span class="tag">{status}</span>
+  </div>
+  <h2>{title}</h2>
+  <p class="shelf-creator">{creator}{year ? `, ${year}` : ""}</p>
+  <p>{note}</p>
+</article>

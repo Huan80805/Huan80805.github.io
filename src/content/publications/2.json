@@ -1,0 +1,12 @@
+{
+  "title": "Profile-LLM: Dynamic Profile Optimization for Realistic Personality Expression in LLMs",
+  "authors": "Shi-Wei Dai, Yan-Wei Shie, Tsung-Huan Yang, Lun-Wei Ku, and Yung-Hui Li",
+  "venue": "Preprint",
+  "image": "/assets/images/publications/thumbnail-3.jpg",
+  "links": [
+    {
+      "label": "ArXiv",
+      "href": "https://arxiv.org/abs/2511.19852"
+    }
+  ]
+}

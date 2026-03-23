@@ -1,0 +1,16 @@
+{
+  "title": "Preserving Safety in Fine-Tuned Large Language Models: A Systematic Evaluation and Mitigation Strategy",
+  "authors": "Tsung-Huan Yang, Ko-Wei Huang, Yung-Hui Li, and Lun-Wei Ku",
+  "venue": "NeurIPS Workshop 2024",
+  "image": "/assets/images/publications/thumbnail-2.png",
+  "links": [
+    {
+      "label": "Poster",
+      "href": "https://neurips.cc/virtual/2024/106260"
+    },
+    {
+      "label": "OpenReview",
+      "href": "https://openreview.net/forum?id=SJCirqo9MK"
+    }
+  ]
+}

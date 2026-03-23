@@ -1,0 +1,22 @@
+---
+interface Props {
+  year: string;
+  title: string;
+  body: string;
+  category: string;
+  accent: string;
+}
+
+const { year, title, body, category, accent } = Astro.props;
+---
+
+<article class={`timeline-entry accent-${accent}`}>
+  <div class="timeline-stamp">
+    <span>{year}</span>
+  </div>
+  <div class="timeline-body">
+    <p class="eyebrow">{category}</p>
+    <h2>{title}</h2>
+    <p>{body}</p>
+  </div>
+</article>

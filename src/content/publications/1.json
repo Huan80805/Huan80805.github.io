@@ -1,0 +1,16 @@
+{
+  "title": "Is Smaller Always Faster? Tradeoffs in Compressing Self-Supervised Speech Transformers",
+  "authors": "Tzu-Quan Lin, Tsung-Huan Yang, Chun-Yao Chang, Kuang-Ming Chen, Tzu-hsun Feng, Hung-yi Lee, and Hao Tang",
+  "venue": "IEEE ASRU 2025",
+  "image": "/assets/images/publications/thumbnail-1.png",
+  "links": [
+    {
+      "label": "ArXiv",
+      "href": "https://arxiv.org/abs/2211.09949"
+    },
+    {
+      "label": "Code",
+      "href": "https://github.com/nervjack2/Speech-SSL-Compression"
+    }
+  ]
+}

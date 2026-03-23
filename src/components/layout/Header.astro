@@ -1,0 +1,23 @@
+---
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
+{ href: "/now", label: "Now" },
+  { href: "/shelf", label: "Shelf" }
+];
+---
+
+<header class="site-header">
+  <a class="site-mark" href="/">
+    <span class="site-mark-name">Tsung-Huan Yang</span>
+    <span class="site-mark-sub">Research, systems, notes</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary">
+    {nav.map((item) => (
+      <a href={item.href} class={Astro.url.pathname === item.href ? "is-active" : undefined}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+</header>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  thumbnail: string;
+  tags?: string[];
+  status: string;
+}
+
+const { href, title, summary, thumbnail, tags = [], status } = Astro.props;
+---
+
+<a class="project-card" href={href}>
+  <div class="project-card-image">
+    <img src={thumbnail} alt="" loading="lazy" />
+    <span class="project-card-status">{status}</span>
+  </div>
+  <div class="project-card-copy">
+    <h2>{title}</h2>
+    <p>{summary}</p>
+    <div class="tag-row">
+      {tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+</a>

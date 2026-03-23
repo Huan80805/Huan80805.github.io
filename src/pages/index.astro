@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/home/Hero.astro";
+import SectionCard from "../components/home/SectionCard.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
+import TimelineEntry from "../components/timeline/TimelineEntry.astro";
+import { getCollection } from "astro:content";
+
+const allProjects = await getCollection("projects");
+const featuredProjects = allProjects.filter((entry) => entry.data.featured).slice(0, 2);
+const featuredWriting = (await getCollection("writing"))
+  .filter((entry) => entry.data.featured && !entry.data.draft)
+  .slice(0, 2);
+const timelineEntries = (await getCollection("timeline")).sort((a, b) => a.id.localeCompare(b.id));
+const publications = await getCollection("publications");
+---
+
+<BaseLayout title="Tsung-Huan Yang" description="Personal website of Tsung-Huan Yang">
+  <Hero />
+
+  <section class="section-block">
+    <div class="section-heading">
+      <h2>Timeline</h2>
+      <p class="eyebrow">Education, research, public output, and what comes next.</p>
+    </div>
+    <div class="timeline-rail">
+      {timelineEntries.map((entry) => (
+        <TimelineEntry
+          year={entry.data.year}
+          title={entry.data.title}
+          body={entry.data.body}
+          category={entry.data.category}
+          accent={entry.data.accent}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading">
+      <h2>Featured projects</h2>
+      <p class="eyebrow">Click on the cards to learn more :)</p>
+    </div>
+    <div class="project-grid">
+      {featuredProjects.map((project) => (
+        <ProjectCard
+          href={`/projects/${project.slug}`}
+          title={project.data.title}
+          summary={project.data.summary}
+          thumbnail={project.data.thumbnail}
+          tags={project.data.tags}
+          status={project.data.status}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading">
+      <h2>Publications</h2>
+      <p class="eyebrow">Selected papers and workshop outputs.</p>
+    </div>
+    <div class="publication-grid">
+      {publications.map((publication) => (
+        <article class="publication-card">
+          <div class="publication-image">
+            <img src={publication.data.image} alt="" loading="lazy" />
+            <span class="publication-venue">{publication.data.venue}</span>
+          </div>
+          <div class="publication-copy">
+            <h3>{publication.data.title}</h3>
+            <p>{publication.data.authors}</p>
+            {publication.data.links.length > 0 && (
+              <div class="link-row">
+                {publication.data.links.map((link) => (
+                  <a class="button-link button-link-secondary" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading">
+      <h2>Latest writing</h2>
+      <p class="eyebrow">Recent posts and notes.</p>
+    </div>
+    <div class="feature-grid">
+      {featuredWriting.map((entry) => (
+        <SectionCard
+          eyebrow={entry.data.type}
+          title={entry.data.title}
+          body={entry.data.description}
+          href={`/writing/${entry.slug}`}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
