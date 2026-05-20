@@ -1,4 +1,7 @@
 ---
+// Only include YAML here if needed, or leave empty if not needed
+---
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ShelfCard from "../components/shelf/ShelfCard.astro";
 import { getCollection } from "astro:content";
@@ -6,7 +9,6 @@ import { getCollection } from "astro:content";
 const items = await getCollection("shelf");
 const current = items.filter((item) => item.data.status === "now");
 const archive = items.filter((item) => item.data.status !== "now");
----
 
 <BaseLayout title="Shelf | Tsung-Huan Yang" description="Books, games, anime, films, and papers">
   <section class="page-hero">
