@@ -7,13 +7,13 @@ tags:
 ---
 
 
-  - [PCA](#pca)
-  - [EM algorithm](#em-algorithm)
-  - [VAE](#vae)
-    - [True posterior $p_\theta(z |x)$ and evidence $p_\theta(x)$ are both intractable](#true-posterior-pthetaz-x-and-evidence-pthetax-are-both-intractable)
-    - [ELBO (evidence lower-bound) of marginal log-likelihood:](#elbo-evidence-lower-bound-of-marginal-log-likelihood)
-    - [Exact decomposition of Evidence to ELBO + KL](#exact-decomposition-of-evidence-to-elbo-kl)
-    - [Optimizing ELBO](#optimizing-elbo)
+- [PCA](#pca)
+- [EM algorithm](#em-algorithm)
+- [VAE](#vae)
+  - [True posterior $p_\theta(z |x)$ and evidence $p_\theta(x)$ are both intractable](#true-posterior-pthetaz-x-and-evidence-pthetax-are-both-intractable)
+  - [ELBO (evidence lower-bound) of marginal log-likelihood:](#elbo-evidence-lower-bound-of-marginal-log-likelihood)
+  - [Exact decomposition of Evidence to ELBO + KL](#exact-decomposition-of-evidence-to-elbo-kl)
+  - [Optimizing ELBO](#optimizing-elbo)
 
 
 ## PCA

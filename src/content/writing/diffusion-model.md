@@ -10,15 +10,15 @@ tags:
 **Table of Contents**
 
 
-  - [Introduction](#introduction)
-  - [Theoretical definition](#theoretical-definition)
-    - [_forward diffusion process_](#forward-diffusion-process)
-    - [_reverse diffusion process_](#reverse-diffusion-process)
-    - [_Variational lower bound_](#variational-lower-bound)
-    - [From per-step KL to noise-matching loss](#from-per-step-kl-to-noise-matching-loss)
-  - [Training and Inference](#training-and-inference)
-  - [Comparison with VAE](#comparison-with-vae)
-  - [References](#references)
+- [Introduction](#introduction)
+- [Theoretical definition](#theoretical-definition)
+  - [_forward diffusion process_](#forward-diffusion-process)
+  - [_reverse diffusion process_](#reverse-diffusion-process)
+  - [_Variational lower bound_](#variational-lower-bound)
+  - [From per-step KL to noise-matching loss](#from-per-step-kl-to-noise-matching-loss)
+- [Training and Inference](#training-and-inference)
+- [Comparison with VAE](#comparison-with-vae)
+- [References](#references)
 
 
 ## Introduction

@@ -117,8 +117,9 @@ function fixTOC(md) {
       headings.push({ level, text, id });
     }
   }
+  const baseLevel = Math.min(...headings.map(({ level }) => level));
   const toc = headings
-    .map(({ level, text, id }) => `${"  ".repeat(level - 1)}- [${text}](#${id})`)
+    .map(({ level, text, id }) => `${"  ".repeat(level - baseLevel)}- [${text}](#${id})`)
     .join("\n");
   return md.replace("<!--TOC-->", toc).replaceAll("<!--TOC-->", "");
 }

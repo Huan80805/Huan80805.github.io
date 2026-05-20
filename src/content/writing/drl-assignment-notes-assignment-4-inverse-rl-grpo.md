@@ -8,16 +8,16 @@ listed: false
 ---
 
 
-  - [Inverse RL](#inverse-rl)
-    - [Maximum Entropy IRL](#maximum-entropy-irl)
-  - [Group Relative Policy Optimization (GRPO)](#group-relative-policy-optimization-grpo)
-    - [The Group Advantage (Control Variate)](#the-group-advantage-control-variate)
-    - [Sequence-Level Probability Ratio](#sequence-level-probability-ratio)
-    - [The Clipped Surrogate Objective](#the-clipped-surrogate-objective)
-    - [KL Divergence Penalty](#kl-divergence-penalty)
-    - [The Final Loss Function & Code](#the-final-loss-function-code)
-    - [Reward Shaping (Sparse Signals)](#reward-shaping-sparse-signals)
-  - [References](#references)
+- [Inverse RL](#inverse-rl)
+  - [Maximum Entropy IRL](#maximum-entropy-irl)
+- [Group Relative Policy Optimization (GRPO)](#group-relative-policy-optimization-grpo)
+  - [The Group Advantage (Control Variate)](#the-group-advantage-control-variate)
+  - [Sequence-Level Probability Ratio](#sequence-level-probability-ratio)
+  - [The Clipped Surrogate Objective](#the-clipped-surrogate-objective)
+  - [KL Divergence Penalty](#kl-divergence-penalty)
+  - [The Final Loss Function & Code](#the-final-loss-function-code)
+  - [Reward Shaping (Sparse Signals)](#reward-shaping-sparse-signals)
+- [References](#references)
 
 
 ## Inverse RL
