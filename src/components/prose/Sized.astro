@@ -1,0 +1,16 @@
+---
+interface Props {
+  width?: string;
+  align?: "left" | "center" | "right";
+}
+
+const { width, align = "center" } = Astro.props;
+
+const styles: string[] = [];
+if (width) styles.push(`--w: ${width}`);
+const alignClass = align === "center" ? "" : ` sized-${align}`;
+---
+
+<div class={`sized${alignClass}`} style={styles.join("; ")}>
+  <slot />
+</div>

@@ -3,27 +3,39 @@ import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   date: Date;
   type: string;
   tags?: string[];
 }
 
 const { title, description, date, type, tags = [] } = Astro.props;
+
+const dateLabel = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
-<BaseLayout title={`${title} | Writing`} description={description}>
-  <article class="prose-page">
-    <header class="page-hero page-hero-compact">
-      <p class="eyebrow">Writing / {type}</p>
+<BaseLayout title={`${title} | Notes`} description={description ?? title}>
+  <article class="detail-page">
+    <a href="/writing" class="back-link">← Notes</a>
+
+    <header class="detail-hero">
+      <span class={`eyebrow writing-type-badge writing-type-${type}`}>
+        {type} · {dateLabel}
+      </span>
       <h1>{title}</h1>
-      <p class="lede">{description}</p>
-      <div class="meta-row">
-        <span>{date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
-        {tags.map((tag) => <span class="tag">{tag}</span>)}
-      </div>
+      {description && <p class="lede">{description}</p>}
+      {tags.length > 0 && (
+        <div class="tag-row detail-tags">
+          {tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
     </header>
-    <div class="prose-block">
+
+    <div class="prose-block detail-prose">
       <slot />
     </div>
   </article>

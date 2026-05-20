@@ -1,10 +1,7 @@
 ---
 const nav = [
   { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/writing", label: "Writing" },
-{ href: "/now", label: "Now" },
-  { href: "/shelf", label: "Shelf" }
+  { href: "/writing", label: "Notes" }
 ];
 ---
 
@@ -19,5 +16,48 @@ const nav = [
         {item.label}
       </a>
     ))}
+    <button class="site-nav-cmd" data-cmdk-trigger aria-label="Open command palette">
+      <span class="site-nav-cmd-key">⌘K</span>
+    </button>
+    <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+      <svg class="theme-toggle-icon icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+      <svg class="theme-toggle-icon icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </button>
   </nav>
 </header>
+
+<script is:inline>
+  (function () {
+    let initialized = false;
+
+    function bind() {
+      const toggle = document.querySelector("[data-theme-toggle]");
+      const cmdkBtn = document.querySelector("[data-cmdk-trigger]");
+      if (toggle && !toggle.dataset.bound) {
+        toggle.dataset.bound = "1";
+        toggle.addEventListener("click", () => {
+          const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem("theme", next); } catch {}
+        });
+      }
+      if (cmdkBtn && !cmdkBtn.dataset.bound) {
+        cmdkBtn.dataset.bound = "1";
+        cmdkBtn.addEventListener("click", () => {
+          document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
+        });
+      }
+    }
+
+    bind();
+    if (!initialized) {
+      initialized = true;
+      document.addEventListener("astro:page-load", bind);
+    }
+  })();
+</script>

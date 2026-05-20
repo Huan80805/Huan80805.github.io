@@ -1,0 +1,191 @@
+---
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).filter((e) => !e.data.draft);
+const writing = (await getCollection("writing")).filter((e) => !e.data.draft && e.data.listed);
+
+const items = [
+  { label: "Home", href: "/", section: "Page", hint: "Hero, timeline, projects" },
+  { label: "Notes", href: "/writing", section: "Page", hint: "Course notes and essays" },
+  { label: "Colophon", href: "/colophon", section: "Page", hint: "Type, palette, build" },
+  ...projects.map((p) => ({
+    label: p.data.title,
+    href: `/projects/${p.slug}`,
+    section: "Project",
+    hint: p.data.summary,
+  })),
+  ...writing.map((w) => ({
+    label: w.data.title,
+    href: `/writing/${w.slug}`,
+    section: "Notes",
+    hint: w.data.description ?? w.data.type,
+  })),
+];
+
+const itemsJson = JSON.stringify(items);
+---
+
+<div class="cmdk" data-cmdk hidden>
+  <div class="cmdk-backdrop" data-cmdk-backdrop></div>
+  <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="Quick navigation">
+    <div class="cmdk-input-row">
+      <span class="cmdk-input-prefix">⌘</span>
+      <input
+        class="cmdk-input"
+        type="search"
+        placeholder="Search pages, projects, notes"
+        autocomplete="off"
+        spellcheck="false"
+        data-cmdk-input
+      />
+    </div>
+    <ul class="cmdk-list" data-cmdk-list></ul>
+    <div class="cmdk-footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> open</span>
+      <span><kbd>esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+
+<script id="cmdk-data" type="application/json" is:inline set:html={itemsJson}></script>
+
+<script is:inline>
+  (function () {
+    let root, input, list, backdrop, items, filtered, activeIndex;
+    let initialized = false;
+
+    function open() {
+      root.hidden = false;
+      input.value = "";
+      filtered = items;
+      activeIndex = 0;
+      render();
+      requestAnimationFrame(() => input.focus());
+      document.body.style.overflow = "hidden";
+    }
+
+    function close() {
+      root.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function escape(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[c]);
+    }
+
+    function render() {
+      if (!filtered.length) {
+        list.innerHTML = '<li class="cmdk-empty">No matches</li>';
+        return;
+      }
+      list.innerHTML = filtered
+        .map(
+          (it, i) =>
+            '<li class="cmdk-item' +
+            (i === activeIndex ? " is-active" : "") +
+            '" data-href="' +
+            escape(it.href) +
+            '">' +
+            '<span class="cmdk-section">' + escape(it.section) + "</span>" +
+            '<span class="cmdk-label">' + escape(it.label) + "</span>" +
+            (it.hint ? '<span class="cmdk-hint">' + escape(it.hint) + "</span>" : "") +
+            "</li>"
+        )
+        .join("");
+      const active = list.querySelector(".cmdk-item.is-active");
+      if (active) active.scrollIntoView({ block: "nearest" });
+    }
+
+    function filter(q) {
+      q = q.toLowerCase().trim();
+      filtered = !q
+        ? items
+        : items.filter(
+            (it) =>
+              it.label.toLowerCase().includes(q) ||
+              it.section.toLowerCase().includes(q) ||
+              (it.hint && it.hint.toLowerCase().includes(q))
+          );
+      activeIndex = 0;
+      render();
+    }
+
+    function move(delta) {
+      if (!filtered.length) return;
+      activeIndex = (activeIndex + delta + filtered.length) % filtered.length;
+      render();
+    }
+
+    function activate() {
+      if (!filtered.length) return;
+      const href = filtered[activeIndex].href;
+      close();
+      window.location.href = href;
+    }
+
+    function onKeydown(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        if (!root) return;
+        root.hidden ? open() : close();
+        return;
+      }
+      if (!root || root.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      else if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+      else if (e.key === "Enter") { e.preventDefault(); activate(); }
+    }
+
+    function init() {
+      root = document.querySelector("[data-cmdk]");
+      input = document.querySelector("[data-cmdk-input]");
+      list = document.querySelector("[data-cmdk-list]");
+      backdrop = document.querySelector("[data-cmdk-backdrop]");
+      const dataEl = document.getElementById("cmdk-data");
+      if (!root || !input || !list || !backdrop || !dataEl) return;
+
+      try {
+        items = JSON.parse(dataEl.textContent || "[]");
+      } catch {
+        items = [];
+      }
+      filtered = items;
+      activeIndex = 0;
+
+      input.addEventListener("input", (e) => filter(e.target.value));
+      backdrop.addEventListener("click", close);
+      list.addEventListener("click", (e) => {
+        const t = e.target.closest(".cmdk-item");
+        if (t && t.dataset.href) {
+          close();
+          window.location.href = t.dataset.href;
+        }
+      });
+      list.addEventListener("mousemove", (e) => {
+        const t = e.target.closest(".cmdk-item");
+        if (!t) return;
+        const idx = Array.prototype.indexOf.call(list.children, t);
+        if (idx >= 0 && idx !== activeIndex) {
+          activeIndex = idx;
+          render();
+        }
+      });
+
+      if (!initialized) {
+        document.addEventListener("keydown", onKeydown);
+        initialized = true;
+      }
+    }
+
+    init();
+    document.addEventListener("astro:page-load", init);
+  })();
+</script>

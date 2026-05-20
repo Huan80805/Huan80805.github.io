@@ -6,6 +6,7 @@ status: course-project
 tags:
   - web
 featured: false
+draft: true
 thumbnail: /assets/images/wp2022/thumbnail.png
 role: Course project team member
 stack:

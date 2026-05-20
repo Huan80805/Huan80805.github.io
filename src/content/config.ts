@@ -4,12 +4,12 @@ const writing = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    description: z.string(),
     date: z.coerce.date(),
-    type: z.enum(["note", "post", "reading-note"]),
+    type: z.enum(["blog", "reading", "note"]),
+    description: z.string().optional(),
     tags: z.array(z.string()).default([]),
+    listed: z.boolean().default(true),
     draft: z.boolean().default(false),
-    featured: z.boolean().default(false),
     math: z.boolean().default(false)
   })
 });
@@ -33,7 +33,8 @@ const projects = defineCollection({
           href: z.string().url()
         })
       )
-      .default([])
+      .default([]),
+    draft: z.boolean().default(false)
   })
 });
 

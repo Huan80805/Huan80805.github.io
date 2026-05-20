@@ -1,0 +1,30 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  authors: string;
+  venue: string;
+  links: Link[];
+}
+
+const { title, authors, venue, links } = Astro.props;
+---
+
+<article class="publication-row">
+  <span class="publication-venue">{venue}</span>
+  <div class="publication-main">
+    <h3>{title}</h3>
+    <p class="publication-authors">{authors}</p>
+  </div>
+  {links.length > 0 && (
+    <div class="publication-links">
+      {links.map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer">{link.label} →</a>
+      ))}
+    </div>
+  )}
+</article>

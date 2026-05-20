@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { execSync } from "node:child_process";
+
+let gitHash = "local";
+try {
+  gitHash = execSync("git rev-parse --short HEAD").toString().trim();
+} catch {}
+
+const buildDate = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+}).format(new Date());
+
+const fonts = [
+  {
+    family: "Fraunces",
+    role: "Display + lede",
+    designer: "Stephen Nixon, Phaedra Charles, Undercase Type",
+    sample: "Building things you can actually trust.",
+    note: "Variable type with optical-size, weight, and softness axes. Used for headlines and italic accents.",
+    style: "font-family: var(--font-display); font-weight: 400; font-variation-settings: 'opsz' 60, 'SOFT' 50;",
+  },
+  {
+    family: "Inter",
+    role: "Body + UI",
+    designer: "Rasmus Andersson",
+    sample: "Body copy, navigation, buttons, the running text.",
+    note: "Tuned for screen reading at small sizes.",
+    style: "font-family: var(--font-body); font-weight: 400;",
+  },
+  {
+    family: "JetBrains Mono",
+    role: "Metadata",
+    designer: "JetBrains",
+    sample: "01 / 12   2025   FOREST   #4a5e4b",
+    note: "Years, counters, eyebrows, code, hex codes, anything tabular.",
+    style: "font-family: var(--font-mono); font-weight: 500;",
+  },
+];
+
+const colors = [
+  { name: "--bg", hex: "#faf4e8", role: "Background cream" },
+  { name: "--paper", hex: "#fcf8f0", role: "Card surface" },
+  { name: "--paper-strong", hex: "#f3ebdb", role: "Image background" },
+  { name: "--ink", hex: "#241f1a", role: "Primary text" },
+  { name: "--forest", hex: "#4a5e4b", role: "Primary accent" },
+  { name: "--earth", hex: "#a8825c", role: "Secondary accent" },
+  { name: "--moss", hex: "#88977d", role: "Muted accent" },
+  { name: "--rule", hex: "#d8ccb2", role: "Borders + rules" },
+];
+
+const stack = [
+  { term: "Framework", value: "Astro 5 (static)" },
+  { term: "Content", value: "Content collections (Markdown + MDX)" },
+  { term: "Math", value: "remark-math + rehype-katex" },
+  { term: "Hosting", value: "GitHub Pages" },
+  { term: "Analytics", value: "Google Analytics 4" },
+  { term: "Source", value: "github.com/Huan80805/huan80805.github.io", href: "https://github.com/Huan80805/huan80805.github.io" },
+];
+
+const influences = [
+  { name: "Frank Chimero", url: "https://frankchimero.com", note: "Editorial warmth, restraint, paper-leaning palette." },
+  { name: "Rauno Freiberg", url: "https://rauno.me", note: "Structured surfaces, scroll choreography, mono metadata." },
+  { name: "Josh Comeau", url: "https://www.joshwcomeau.com", note: "Interactive figures, playful precision." },
+];
+
+const history = [
+  { version: "v1", year: "2022", note: "Original portfolio. Comfortaa + Newsreader, marketing-card grid, hand-coded HTML." },
+  { version: "v2", year: "2026", note: "Astro 5 migration. Fraunces + Inter + JetBrains Mono, scroll-stack homepage, Chimero × Rauno aesthetic." },
+];
+---
+
+<BaseLayout title="Colophon — Tsung-Huan Yang" description="About this site, its type, palette, and craft.">
+  <section class="page-hero page-hero-compact">
+    <span class="eyebrow">Colophon</span>
+    <h1>This site, in pieces.</h1>
+    <p class="lede">
+      Personal home of Tsung-Huan Yang. Last redesigned May 2026. Built in the open.
+    </p>
+  </section>
+
+  <article class="colophon">
+    <section class="col-block">
+      <div class="col-head">
+        <h2>Typography</h2>
+        <span class="eyebrow">3 families</span>
+      </div>
+      <dl class="font-list">
+        {fonts.map((f) => (
+          <div class="font-row">
+            <dt>
+              <span class="font-name">{f.family}</span>
+              <span class="font-role">{f.role}</span>
+            </dt>
+            <dd>
+              <p class="font-sample" style={f.style}>{f.sample}</p>
+              <p class="font-note">{f.designer}. {f.note}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="col-block">
+      <div class="col-head">
+        <h2>Palette</h2>
+        <span class="eyebrow">{colors.length} tokens</span>
+      </div>
+      <ul class="swatch-grid">
+        {colors.map((c) => (
+          <li class="swatch">
+            <span class="swatch-chip" style={`background: ${c.hex};`}></span>
+            <span class="swatch-name">{c.name}</span>
+            <span class="swatch-hex">{c.hex}</span>
+            <span class="swatch-role">{c.role}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="col-block">
+      <div class="col-head">
+        <h2>Stack</h2>
+        <span class="eyebrow">Build</span>
+      </div>
+      <dl class="kv-list">
+        {stack.map((s) => (
+          <div class="kv-row">
+            <dt>{s.term}</dt>
+            <dd>
+              {s.href ? (
+                <a href={s.href} target="_blank" rel="noreferrer">{s.value}</a>
+              ) : (
+                s.value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="col-block">
+      <div class="col-head">
+        <h2>Influences</h2>
+        <span class="eyebrow">3 sites</span>
+      </div>
+      <ul class="influence-list">
+        {influences.map((i) => (
+          <li>
+            <a href={i.url} target="_blank" rel="noreferrer">
+              <span class="influence-name">{i.name}</span>
+              <span class="influence-url">{i.url.replace("https://", "").replace("www.", "")} →</span>
+            </a>
+            <span class="influence-note">{i.note}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="col-block">
+      <div class="col-head">
+        <h2>History</h2>
+        <span class="eyebrow">{history.length} versions</span>
+      </div>
+      <ul class="history-list">
+        {history.map((h) => (
+          <li>
+            <span class="history-version">{h.version}</span>
+            <span class="history-year">{h.year}</span>
+            <p class="history-note">{h.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <footer class="col-footer">
+      <span>Compiled {buildDate} · {gitHash}</span>
+    </footer>
+  </article>
+</BaseLayout>

@@ -4,99 +4,301 @@ import Hero from "../components/home/Hero.astro";
 import SectionCard from "../components/home/SectionCard.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
 import TimelineEntry from "../components/timeline/TimelineEntry.astro";
+import PublicationRow from "../components/publications/PublicationRow.astro";
 import { getCollection } from "astro:content";
 
-const allProjects = await getCollection("projects");
-const featuredProjects = allProjects.filter((entry) => entry.data.featured).slice(0, 2);
+const allProjects = (await getCollection("projects"))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const featuredWriting = (await getCollection("writing"))
-  .filter((entry) => entry.data.featured && !entry.data.draft)
+  .filter((entry) => !entry.data.draft && entry.data.listed)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 2);
 const timelineEntries = (await getCollection("timeline")).sort((a, b) => a.id.localeCompare(b.id));
 const publications = await getCollection("publications");
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
 ---
 
 <BaseLayout title="Tsung-Huan Yang" description="Personal website of Tsung-Huan Yang">
   <Hero />
 
-  <section class="section-block">
-    <div class="section-heading">
-      <h2>Timeline</h2>
-      <p class="eyebrow">Education, research, public output, and what comes next.</p>
+  <section class="stack-section" data-stack-section>
+    <div class="stack-pin stack-pin-1" data-stack-pin="1">
+      <div class="section-heading">
+        <h2>Timeline</h2>
+        <span class="eyebrow">Scroll ↓ to advance</span>
+      </div>
+      <div class="scroll-strip">
+        <div class="scroll-track timeline-track" data-stack-track="1">
+          {timelineEntries.map((entry) => (
+            <TimelineEntry
+              year={entry.data.year}
+              title={entry.data.title}
+              body={entry.data.body}
+              category={entry.data.category}
+              accent={entry.data.accent}
+            />
+          ))}
+        </div>
+      </div>
+      <div class="scroll-meta">
+        <div class="scroll-progress" aria-hidden="true">
+          <span class="scroll-progress-fill" data-stack-progress="1"></span>
+        </div>
+        <span class="scroll-counter" data-stack-counter="1">01 / 00</span>
+      </div>
     </div>
-    <div class="timeline-rail">
-      {timelineEntries.map((entry) => (
-        <TimelineEntry
-          year={entry.data.year}
-          title={entry.data.title}
-          body={entry.data.body}
-          category={entry.data.category}
-          accent={entry.data.accent}
-        />
-      ))}
+
+    <div id="projects" class="stack-pin stack-pin-2" data-stack-pin="2">
+      <div class="section-heading">
+        <h2>Projects</h2>
+        <span class="eyebrow">Scroll ↓ to advance</span>
+      </div>
+      <div class="scroll-strip">
+        <div class="scroll-track project-track" data-stack-track="2">
+          {allProjects.map((project) => (
+            <ProjectCard
+              href={`/projects/${project.slug}`}
+              title={project.data.title}
+              summary={project.data.summary}
+              thumbnail={project.data.thumbnail}
+              tags={project.data.tags}
+              status={project.data.status}
+            />
+          ))}
+        </div>
+      </div>
+      <div class="scroll-meta">
+        <div class="scroll-progress" aria-hidden="true">
+          <span class="scroll-progress-fill" data-stack-progress="2"></span>
+        </div>
+        <span class="scroll-counter" data-stack-counter="2">01 / 00</span>
+      </div>
+    </div>
+
+    <div class="stack-pin stack-pin-3" data-stack-pin="3">
+      <div class="section-heading">
+        <h2>Publications</h2>
+        <span class="eyebrow">Selected papers &amp; workshops</span>
+      </div>
+      <div class="publication-list">
+        {publications.map((publication) => (
+          <PublicationRow
+            title={publication.data.title}
+            authors={publication.data.authors}
+            venue={publication.data.venue}
+            links={publication.data.links}
+          />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section-block">
     <div class="section-heading">
-      <h2>Featured projects</h2>
-      <p class="eyebrow">Click on the cards to learn more :)</p>
-    </div>
-    <div class="project-grid">
-      {featuredProjects.map((project) => (
-        <ProjectCard
-          href={`/projects/${project.slug}`}
-          title={project.data.title}
-          summary={project.data.summary}
-          thumbnail={project.data.thumbnail}
-          tags={project.data.tags}
-          status={project.data.status}
-        />
-      ))}
-    </div>
-  </section>
-
-  <section class="section-block">
-    <div class="section-heading">
-      <h2>Publications</h2>
-      <p class="eyebrow">Selected papers and workshop outputs.</p>
-    </div>
-    <div class="publication-grid">
-      {publications.map((publication) => (
-        <article class="publication-card">
-          <div class="publication-image">
-            <img src={publication.data.image} alt="" loading="lazy" />
-            <span class="publication-venue">{publication.data.venue}</span>
-          </div>
-          <div class="publication-copy">
-            <h3>{publication.data.title}</h3>
-            <p>{publication.data.authors}</p>
-            {publication.data.links.length > 0 && (
-              <div class="link-row">
-                {publication.data.links.map((link) => (
-                  <a class="button-link button-link-secondary" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
-                ))}
-              </div>
-            )}
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section-block">
-    <div class="section-heading">
-      <h2>Latest writing</h2>
-      <p class="eyebrow">Recent posts and notes.</p>
+      <h2>Recent notes</h2>
+      <span class="eyebrow"><a href="/writing">All notes →</a></span>
     </div>
     <div class="feature-grid">
       {featuredWriting.map((entry) => (
         <SectionCard
           eyebrow={entry.data.type}
           title={entry.data.title}
-          body={entry.data.description}
+          body={dateFormatter.format(entry.data.date)}
           href={`/writing/${entry.slug}`}
         />
       ))}
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const DWELL_MULTIPLIER = 1.8;
+  const MIN_DWELL = 700;
+
+  let stackCleanup: (() => void) | null = null;
+
+  function initStack() {
+    if (stackCleanup) {
+      stackCleanup();
+      stackCleanup = null;
+    }
+
+    const section = document.querySelector<HTMLElement>("[data-stack-section]");
+    if (!section) return;
+
+    const pin1 = section.querySelector<HTMLElement>('[data-stack-pin="1"]')!;
+    const pin2 = section.querySelector<HTMLElement>('[data-stack-pin="2"]')!;
+    const pin3 = section.querySelector<HTMLElement>('[data-stack-pin="3"]')!;
+    const track1 = section.querySelector<HTMLElement>('[data-stack-track="1"]')!;
+    const track2 = section.querySelector<HTMLElement>('[data-stack-track="2"]')!;
+    const strip1 = track1.closest<HTMLElement>(".scroll-strip")!;
+    const strip2 = track2.closest<HTMLElement>(".scroll-strip")!;
+    const progress1 = section.querySelector<HTMLElement>('[data-stack-progress="1"]');
+    const progress2 = section.querySelector<HTMLElement>('[data-stack-progress="2"]');
+    const counter1 = section.querySelector<HTMLElement>('[data-stack-counter="1"]');
+    const counter2 = section.querySelector<HTMLElement>('[data-stack-counter="2"]');
+    const count1 = track1.children.length;
+    const count2 = track2.children.length;
+    const fmt = (i: number, n: number) =>
+      `${String(i).padStart(2, "0")} / ${String(n).padStart(2, "0")}`;
+
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    type State = {
+      overflow1: number; overflow2: number;
+      dwell1: number; dwell2: number;
+      h1: number; h2: number;
+      t1: number; t2: number;
+    };
+    let state: State | null = null;
+
+    function measure() {
+      if (!section) return;
+      // Reset
+      section.style.height = "";
+      pin1.style.transform = "";
+      pin2.style.transform = "";
+      pin1.style.opacity = "";
+      pin2.style.opacity = "";
+      pin2.style.top = "";
+      pin3.style.top = "";
+      track1.style.transform = "translate3d(0,0,0)";
+      track2.style.transform = "translate3d(0,0,0)";
+
+      if (isCoarsePointer || prefersReducedMotion || window.innerWidth < 720) {
+        section.classList.add("stack-section-native");
+        state = null;
+        return;
+      }
+      section.classList.remove("stack-section-native");
+
+      const overflow1 = Math.max(0, track1.scrollWidth - strip1.clientWidth);
+      const overflow2 = Math.max(0, track2.scrollWidth - strip2.clientWidth);
+
+      const dwell1 = overflow1 > 0 ? Math.max(overflow1 * DWELL_MULTIPLIER, MIN_DWELL) : 0;
+      const dwell2 = overflow2 > 0 ? Math.max(overflow2 * DWELL_MULTIPLIER, MIN_DWELL) : 0;
+
+      const h1 = pin1.offsetHeight;
+      const h2 = pin2.offsetHeight;
+      const h3 = pin3.offsetHeight;
+      const t1 = h1; // transition: timeline slides off / projects rises (h1 of scroll)
+      const t2 = h2; // transition: projects slides off / publications rises (h2 of scroll)
+
+      // Initial sticky offsets — JS keeps them updated each scroll frame.
+      pin2.style.top = `${h1}px`;
+      pin3.style.top = `${h1 + h2}px`;
+
+      // Section ends just as publications finishes its sticky range:
+      // pin3 hits top:0 at trans2End, sticks for h3 of further scroll, releases.
+      section.style.height = `${dwell1 + t1 + dwell2 + t2 + h3}px`;
+
+      state = { overflow1, overflow2, dwell1, dwell2, h1, h2, t1, t2 };
+      update();
+    }
+
+    function update() {
+      if (!section || !state) return;
+      const { overflow1, overflow2, dwell1, dwell2, h1, h2, t1, t2 } = state;
+      const rect = section.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+
+      const phase1End = dwell1;
+      const trans1End = phase1End + t1;
+      const phase2End = trans1End + dwell2;
+      const trans2End = phase2End + t2;
+
+      let p1: number, p2: number;
+      let pin1Y: number, pin2Y: number;
+      let pin2Top: number, pin3Top: number;
+      let pin1Op = 1, pin1Sc = 1;
+      let pin2Op = 1, pin2Sc = 1;
+
+      // Fade out over the last 30% of a transition; subtle 0.98 scale across.
+      const leaving = (tp: number) => ({
+        op: tp < 0.7 ? 1 : Math.max(0, 1 - (tp - 0.7) / 0.3),
+        sc: 1 - 0.02 * tp,
+      });
+
+      if (scrolled <= phase1End) {
+        p1 = dwell1 > 0 ? scrolled / dwell1 : 0;
+        p2 = 0;
+        pin1Y = 0; pin2Y = 0;
+        pin2Top = h1; pin3Top = h1 + h2;
+      } else if (scrolled <= trans1End) {
+        const tp = t1 > 0 ? (scrolled - phase1End) / t1 : 1;
+        p1 = 1; p2 = 0;
+        pin1Y = -h1 * tp; pin2Y = 0;
+        pin2Top = h1 * (1 - tp);
+        pin3Top = h1 * (1 - tp) + h2;
+        ({ op: pin1Op, sc: pin1Sc } = leaving(tp));
+      } else if (scrolled <= phase2End) {
+        p1 = 1;
+        p2 = dwell2 > 0 ? Math.min(1, (scrolled - trans1End) / dwell2) : 0;
+        pin1Y = -h1; pin2Y = 0;
+        pin2Top = 0; pin3Top = h2;
+        pin1Op = 0; pin1Sc = 0.98;
+      } else if (scrolled <= trans2End) {
+        const tp = t2 > 0 ? (scrolled - phase2End) / t2 : 1;
+        p1 = 1; p2 = 1;
+        pin1Y = -h1; pin2Y = -h2 * tp;
+        pin2Top = 0; pin3Top = h2 * (1 - tp);
+        pin1Op = 0; pin1Sc = 0.98;
+        ({ op: pin2Op, sc: pin2Sc } = leaving(tp));
+      } else {
+        p1 = 1; p2 = 1;
+        pin1Y = -h1; pin2Y = -h2;
+        pin2Top = 0; pin3Top = 0;
+        pin1Op = 0; pin1Sc = 0.98;
+        pin2Op = 0; pin2Sc = 0.98;
+      }
+
+      track1.style.transform = `translate3d(${-p1 * overflow1}px, 0, 0)`;
+      track2.style.transform = `translate3d(${-p2 * overflow2}px, 0, 0)`;
+      pin1.style.transform =
+        pin1Y === 0 && pin1Sc === 1 ? "" : `translateY(${pin1Y}px) scale(${pin1Sc})`;
+      pin2.style.transform =
+        pin2Y === 0 && pin2Sc === 1 ? "" : `translateY(${pin2Y}px) scale(${pin2Sc})`;
+      pin1.style.opacity = pin1Op === 1 ? "" : String(pin1Op);
+      pin2.style.opacity = pin2Op === 1 ? "" : String(pin2Op);
+      pin2.style.top = `${pin2Top}px`;
+      pin3.style.top = `${pin3Top}px`;
+      if (progress1) progress1.style.transform = `scaleX(${p1})`;
+      if (progress2) progress2.style.transform = `scaleX(${p2})`;
+      if (counter1)
+        counter1.textContent = fmt(Math.min(count1, Math.floor(p1 * count1) + 1), count1);
+      if (counter2)
+        counter2.textContent = fmt(Math.min(count2, Math.floor(p2 * count2) + 1), count2);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    }
+
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    if ("fonts" in document) {
+      (document as Document & { fonts: { ready: Promise<unknown> } }).fonts.ready.then(measure);
+    }
+    section.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+      if (!img.complete) img.addEventListener("load", measure, { once: true });
+    });
+
+    stackCleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+    };
+  }
+
+  initStack();
+  document.addEventListener("astro:page-load", initStack);
+</script>

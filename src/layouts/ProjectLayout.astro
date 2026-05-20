@@ -10,37 +10,54 @@ interface Props {
   title: string;
   summary: string;
   status: string;
+  role?: string;
   stack?: string[];
   links?: Link[];
+  date?: Date;
+  thumbnail?: string;
 }
 
-const { title, summary, status, stack = [], links = [] } = Astro.props;
+const { title, summary, status, role, stack = [], links = [], date, thumbnail } = Astro.props;
+const year = date ? date.getFullYear().toString() : undefined;
+const heroStyle = thumbnail ? `--hero-bg: url('${thumbnail}')` : undefined;
 ---
 
 <BaseLayout title={`${title} | Projects`} description={summary}>
-  <article class="project-page">
-    <header class="project-hero">
-      <div>
-        <p class="eyebrow">Project / {status}</p>
-        <h1>{title}</h1>
-        <p class="lede">{summary}</p>
-        {links.length > 0 && (
-          <div class="link-row" style="margin-top: 1rem;">
-            {links.map((link) => (
-              <a class="button-link" href={link.href} target="_blank" rel="noreferrer">{link.label}</a>
-            ))}
-          </div>
-        )}
-      </div>
-      <div class="project-meta-panel">
-        <div>
-          <span class="meta-label">Stack</span>
-          <p>{stack.join(" / ")}</p>
-        </div>
-      </div>
+  <article class="detail-page">
+    <a href="/" class="back-link">← Home</a>
+
+    <header class={`detail-hero${thumbnail ? " detail-hero-with-bg" : ""}`} style={heroStyle}>
+      <span class="eyebrow">Project · {status}{year ? ` · ${year}` : ""}</span>
+      <h1>{title}</h1>
+      <p class="lede">{summary}</p>
     </header>
 
-    <div class="project-prose">
+    <dl class="detail-meta">
+      {role && (
+        <div class="detail-meta-row">
+          <dt>Role</dt>
+          <dd>{role}</dd>
+        </div>
+      )}
+      {stack.length > 0 && (
+        <div class="detail-meta-row">
+          <dt>Stack</dt>
+          <dd>{stack.join(" · ")}</dd>
+        </div>
+      )}
+      {links.length > 0 && (
+        <div class="detail-meta-row">
+          <dt>Links</dt>
+          <dd class="detail-links">
+            {links.map((link) => (
+              <a href={link.href} target="_blank" rel="noreferrer">{link.label} →</a>
+            ))}
+          </dd>
+        </div>
+      )}
+    </dl>
+
+    <div class="prose-block detail-prose">
       <slot />
     </div>
   </article>
@@ -52,146 +69,30 @@ const { title, summary, status, stack = [], links = [] } = Astro.props;
   </div>
 </BaseLayout>
 
-<style>
-  :global(.project-hero) {
-    grid-template-columns: 1fr auto;
-  }
-
-  :global(.project-meta-panel) {
-    display: grid;
-    gap: 0rem;
-    align-self: start;
-    white-space: nowrap;
-  }
-
-  :global(.project-meta-panel p) {
-    margin: 0.1rem 0 0;
-    font-size: 0.8rem;
-  }
-
-  .project-prose :global(img) {
-    cursor: zoom-in;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    max-width: 100%;
-    margin: 1rem 0;
-    transition: opacity 120ms ease;
-  }
-
-  .project-prose :global(img:hover) {
-    opacity: 0.88;
-  }
-
-  .project-prose :global(figure) {
-    margin: 1rem 0;
-  }
-
-  .project-prose :global(.half) {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .project-prose :global(figcaption) {
-    font-size: 0.78rem;
-    font-family: var(--font-normal);
-    color: var(--muted);
-    text-align: center;
-    margin-top: 0.4rem;
-  }
-
-  .project-prose :global(iframe),
-  .project-prose :global(video) {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border: none;
-    border-radius: 12px;
-    margin: 1rem 0;
-  }
-
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(36, 31, 26, 0.92);
-    z-index: 9999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
-    cursor: zoom-out;
-  }
-
-  .lightbox.is-open {
-    display: flex;
-  }
-
-  .lightbox-img {
-    max-width: 90vw;
-    max-height: 80vh;
-    object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-    cursor: default;
-  }
-
-  .lightbox-caption {
-    color: rgba(247, 241, 227, 0.75);
-    font-size: 0.82rem;
-    font-family: var(--font-normal);
-    text-align: center;
-    max-width: 60ch;
-    margin: 0;
-  }
-
-  .lightbox-close {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    color: rgba(247, 241, 227, 0.6);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-  }
-
-  .lightbox-close:hover {
-    color: rgba(247, 241, 227, 1);
-  }
-</style>
-
 <script>
-  const lightbox = document.getElementById("lightbox") as HTMLElement;
-  const lbImg = document.getElementById("lightbox-img") as HTMLImageElement;
-  const lbCaption = document.getElementById("lightbox-caption") as HTMLElement;
-  const lbClose = document.getElementById("lightbox-close") as HTMLElement;
+  const lightbox = document.getElementById("lightbox") as HTMLElement | null;
+  const lbImg = document.getElementById("lightbox-img") as HTMLImageElement | null;
+  const lbCaption = document.getElementById("lightbox-caption") as HTMLElement | null;
+  const lbClose = document.getElementById("lightbox-close") as HTMLElement | null;
 
-  document.querySelectorAll<HTMLImageElement>(".project-prose img").forEach((img) => {
-    img.addEventListener("click", () => {
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      const caption =
-        img.closest("figure")?.querySelector("figcaption")?.textContent ??
-        img.alt ??
-        "";
-      lbCaption.textContent = caption;
-      lightbox.classList.add("is-open");
+  if (lightbox && lbImg && lbCaption && lbClose) {
+    document.querySelectorAll<HTMLImageElement>(".detail-prose img").forEach((img) => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", () => {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        const caption =
+          img.closest("figure")?.querySelector("figcaption")?.textContent ??
+          img.alt ??
+          "";
+        lbCaption.textContent = caption;
+        lightbox.classList.add("is-open");
+      });
     });
-  });
 
-  function close() {
-    lightbox.classList.remove("is-open");
+    const close = () => lightbox.classList.remove("is-open");
+    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) close(); });
+    lbClose.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
-
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) close();
-  });
-
-  lbClose.addEventListener("click", close);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
-  });
 </script>

@@ -1,67 +1,130 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const updated = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(new Date());
+
+const status = [
+  { label: "Where", value: "Atlanta, GA" },
+  { label: "Working on", value: "MSCS prep · summer at LinkedIn (AI agents)" },
+  { label: "Reading", value: "[paper or book — fill in]" },
+  { label: "Listening to", value: "[album or playlist — fill in]" },
+  { label: "Building", value: "This site, v2" },
+  { label: "Open to", value: "Chats on safety eval, agents, AI infra" },
+];
+
+const log = [
+  { date: "May 07", text: "Shipped site v2 with the new scroll-stack homepage and a colophon page." },
+  { date: "Apr —", text: "[recent entry — fill in]" },
+  { date: "Apr —", text: "[recent entry — fill in]" },
+  { date: "Mar —", text: "[recent entry — fill in]" },
+];
 ---
 
 <BaseLayout title="Now | Tsung-Huan Yang" description="Current work and current curiosities">
   <section class="page-hero">
-    <p class="eyebrow">Now</p>
+    <span class="eyebrow">Now · Updated {updated}</span>
     <h1>What I am focused on at the moment.</h1>
-    <p class="lede">This page is meant to change often. It sits between a homepage intro, a research profile, and a personal log of what currently matters.</p>
+    <p class="lede">
+      A snapshot, not a résumé. This page sits between a homepage intro, a research profile, and a personal log of
+      what currently matters. It changes often.
+    </p>
   </section>
 
-  <section class="split-grid">
-    <article class="panel-card">
-      <h2>Research</h2>
-      <ul class="clean-list">
-        <li>Safety evaluation and mitigation for fine-tuned language models</li>
-        <li>Mechanistic interpretability and deceptive alignment questions</li>
-        <li>Automated and multimodal red-teaming for language models</li>
-      </ul>
-    </article>
-    <article class="panel-card">
-      <h2>Current state</h2>
-      <ul class="clean-list">
-        <li>Preparing to start the MSCS program at Georgia Tech</li>
-        <li>Expanding this site into a space for notes, case studies, and media tracking</li>
-        <li>Trying to write more frequently without waiting for everything to feel polished</li>
-      </ul>
-    </article>
+  <section class="now-block now-block-status">
+    <header class="now-head">
+      <h2>Status</h2>
+      <span class="eyebrow">Snapshot</span>
+    </header>
+    <dl class="now-status">
+      {status.map((row) => (
+        <div class="now-status-row">
+          <dt>{row.label}</dt>
+          <dd>{row.value}</dd>
+        </div>
+      ))}
+    </dl>
   </section>
 
-  <section class="section-block">
-    <div class="section-heading">
-      <p class="eyebrow">Self-intro</p>
-      <h2>Shorter and more personal than the homepage bio.</h2>
-    </div>
-    <div class="prose-block">
+  <section class="now-block">
+    <header class="now-head">
+      <h2>Self-intro</h2>
+      <span class="eyebrow">Shorter than the homepage</span>
+    </header>
+    <div class="now-prose">
       <p>
         I like research problems that are concrete enough to test but open-ended enough to keep revealing better
         questions. Most of my recent work has been around language models, multimodal systems, and safety evaluation.
       </p>
       <p>
         I also care a lot about how technical work is presented. Part of the reason for rebuilding this site is to
-        make room for clearer writing, more visual project pages, and a less compressed version of what I am actually
+        make room for clearer notes, more visual project pages, and a less compressed version of what I am actually
         interested in.
       </p>
     </div>
   </section>
 
-  <section class="split-grid">
-    <article class="panel-card">
+  <section class="now-block">
+    <header class="now-head">
+      <h2>Research</h2>
+      <span class="eyebrow">Open threads</span>
+    </header>
+    <ol class="focus-list">
+      <li>Safety evaluation and mitigation for fine-tuned language models, especially how refusal training transfers across domains and tasks.</li>
+      <li>Mechanistic interpretability and the stickier questions about deceptive alignment in more capable models.</li>
+      <li>Automated and multimodal red-teaming for language models, with attention to robustness across modalities.</li>
+    </ol>
+  </section>
+
+  <section class="now-block">
+    <header class="now-head">
+      <h2>Current state</h2>
+      <span class="eyebrow">Day-to-day</span>
+    </header>
+    <ol class="focus-list">
+      <li>Preparing to start the MSCS program at Georgia Tech this fall.</li>
+      <li>Joining LinkedIn this summer to work on AI agent platforms.</li>
+      <li>Expanding this site into a slower space for notes, case studies, and media tracking.</li>
+      <li>Trying to write more frequently without waiting for everything to feel polished.</li>
+    </ol>
+  </section>
+
+  <section class="now-block">
+    <header class="now-head">
       <h2>Reading and watching</h2>
-      <ul class="clean-list">
-        <li>Research that sharpens model evaluation rather than only leaderboard performance</li>
-        <li>Design references with stronger framing, tension, and contrast</li>
-        <li>Anime and films that feel clean-cut, bold, and slightly dangerous in composition</li>
-      </ul>
-    </article>
-    <article class="panel-card">
+      <span class="eyebrow">Inputs</span>
+    </header>
+    <ol class="focus-list">
+      <li>Research that sharpens model evaluation rather than only chasing leaderboard performance.</li>
+      <li>Design references with stronger framing, tension, and contrast.</li>
+      <li>Anime and films that feel clean-cut, bold, and slightly dangerous in composition.</li>
+    </ol>
+  </section>
+
+  <section class="now-block">
+    <header class="now-head">
       <h2>Site direction</h2>
-      <ul class="clean-list">
-        <li>Projects as dedicated full pages rather than modals</li>
-        <li>Writing templates that support both quick notes and LaTeX-heavy posts</li>
-        <li>A shelf page that reflects taste without swallowing the whole site</li>
-      </ul>
-    </article>
+      <span class="eyebrow">Meta</span>
+    </header>
+    <ol class="focus-list">
+      <li>Projects as dedicated full pages rather than modals or collapsed cards.</li>
+      <li>Note templates that support both quick notes and LaTeX-heavy posts.</li>
+      <li>A shelf page that reflects taste without swallowing the whole site.</li>
+      <li>A colophon and a recent log to make the build itself part of the story.</li>
+    </ol>
+  </section>
+
+  <section class="now-block">
+    <header class="now-head">
+      <h2>Recent log</h2>
+      <span class="eyebrow">{log.length} entries</span>
+    </header>
+    <ul class="now-log">
+      {log.map((entry) => (
+        <li class="now-log-entry">
+          <span class="now-log-date">{entry.date}</span>
+          <p class="now-log-text">{entry.text}</p>
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>

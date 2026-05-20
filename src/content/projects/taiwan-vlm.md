@@ -8,7 +8,7 @@ tags:
   - multimodal
   - large-scale pre-training
 featured: true
-thumbnail: /assets/images/twvlm/llama-in-tw.jpeg
+thumbnail: /assets/images/twvlm/llama-in-tw.png
 role: Research assistant
 stack:
   - VLM

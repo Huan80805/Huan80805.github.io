@@ -11,12 +11,12 @@ interface Props {
 const { title, creator, type, status, note, year } = Astro.props;
 ---
 
-<article class="shelf-card">
-  <div class="shelf-card-top">
-    <span class="tag">{type}</span>
-    <span class="tag">{status}</span>
-  </div>
+<article class={`shelf-card shelf-type-${type}`}>
+  <header class="shelf-card-head">
+    <span class="shelf-type">{type}</span>
+    <span class={`shelf-status shelf-status-${status}`}>{status}</span>
+  </header>
   <h2>{title}</h2>
   <p class="shelf-creator">{creator}{year ? `, ${year}` : ""}</p>
-  <p>{note}</p>
+  <p class="shelf-note">{note}</p>
 </article>

@@ -1,4 +1,10 @@
 # My personal website
 ```bash
-nodemon --config nodemon.json --exec "http-server . --port 8000 -c-1"
+npm install
+npm run dev"
+```
+
+catch up-to-date notion notebooks
+```bash
+node --env-file=.env scripts/notion-list.js
 ```

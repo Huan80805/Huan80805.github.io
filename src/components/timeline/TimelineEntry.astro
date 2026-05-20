@@ -11,12 +11,8 @@ const { year, title, body, category, accent } = Astro.props;
 ---
 
 <article class={`timeline-entry accent-${accent}`}>
-  <div class="timeline-stamp">
-    <span>{year}</span>
-  </div>
-  <div class="timeline-body">
-    <p class="eyebrow">{category}</p>
-    <h2>{title}</h2>
-    <p>{body}</p>
-  </div>
+  <span class="timeline-year">{year}</span>
+  <span class="timeline-category">{category}</span>
+  <h2>{title}</h2>
+  <p>{body}</p>
 </article>

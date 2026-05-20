@@ -1,6 +1,8 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
+import CommandPalette from "../components/chrome/CommandPalette.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -25,6 +27,20 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://huan80805.github.io" />
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const preferred = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+          const theme = stored || preferred;
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-R6E6DFWQLD"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -35,8 +51,9 @@ const {
     <link rel="shortcut icon" href="/assets/images/avatar-white.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&family=Fuzzy+Bubbles:wght@400;700&family=Ledger&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,30..100;1,9..144,300..700,30..100&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <ClientRouter />
   </head>
   <body>
     <div class="site-shell">
@@ -46,5 +63,6 @@ const {
       </main>
       <Footer />
     </div>
+    <CommandPalette />
   </body>
 </html>

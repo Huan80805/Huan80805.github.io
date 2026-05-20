@@ -8,7 +8,7 @@ tags:
   - LLM safety
   - red-teaming
 featured: true
-thumbnail: /assets/images/genaiSafety/thumbnail.jpeg
+thumbnail: /assets/images/genaiSafety/thumbnail.png
 role: Research assistant
 stack:
   - LLM
@@ -24,12 +24,12 @@ links: []
 
 This project, funded by Taiwan's National Institute of Cyber Security, evaluates the safety and security of Taiwanese LLMs including TAIDE and Taiwan-LLM. The framework has two main components: building safeguard models for detecting harmful generations, and automatic red-teaming to probe model vulnerabilities.
 
-
-<figure class="half">
+<div class="sized" style="--w: 70%">
+  <figure>
     <img src="/assets/images/genaiSafety/pipeline.png"/>
     <figcaption>End-to-end project pipeline: safeguard model training and automatic red-teaming for Taiwanese LLMs.</figcaption>
-</figure>
-
+  </figure>
+</div>
 
 ## Safeguard models
 
