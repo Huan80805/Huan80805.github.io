@@ -1,5 +1,5 @@
 ---
-title: "Assignment 3: Model-Based RL with Deterministic, Stochastic, and Ensemble Dynamics"
+title: "Model-Based RL with Deterministic, Stochastic, and Ensemble Dynamics"
 date: 2026-02-25
 type: note
 tags:

@@ -144,9 +144,6 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "n
     const fmt = (i: number, n: number) =>
       `${String(i).padStart(2, "0")} / ${String(n).padStart(2, "0")}`;
 
-    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     type State = {
       overflow1: number; overflow2: number;
       dwell1: number; dwell2: number;
@@ -168,7 +165,14 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", { month: "long", year: "n
       track1.style.transform = "translate3d(0,0,0)";
       track2.style.transform = "translate3d(0,0,0)";
 
-      if (isCoarsePointer || prefersReducedMotion || window.innerWidth < 720) {
+      const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const shouldUseNativeStack =
+        isCoarsePointer ||
+        prefersReducedMotion ||
+        window.innerWidth < 720;
+
+      if (shouldUseNativeStack) {
         section.classList.add("stack-section-native");
         state = null;
         return;

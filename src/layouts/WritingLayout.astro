@@ -39,4 +39,98 @@ const dateLabel = date.toLocaleDateString("en-US", {
       <slot />
     </div>
   </article>
+
+  <script>
+    let renderId = 0;
+    let renderQueued = false;
+    let mermaidLoader: Promise<typeof import("mermaid").default> | undefined;
+
+    function loadMermaid() {
+      mermaidLoader ??= import("mermaid").then((module) => module.default);
+      return mermaidLoader;
+    }
+
+    function themeVariables() {
+      const styles = getComputedStyle(document.documentElement);
+      const value = (name: string, fallback: string) => styles.getPropertyValue(name).trim() || fallback;
+
+      return {
+        background: value("--paper", "#fbfaf6"),
+        primaryColor: value("--paper-strong", "#f1eee6"),
+        primaryTextColor: value("--ink", "#25211b"),
+        primaryBorderColor: value("--line", "#d8d0c3"),
+        lineColor: value("--muted", "#756f66"),
+        secondaryColor: value("--accent-soft", "#eee5d8"),
+        tertiaryColor: value("--paper", "#fbfaf6"),
+        fontFamily: value("--font-body", "Inter, sans-serif")
+      };
+    }
+
+    function initializeMermaid(mermaid: Awaited<ReturnType<typeof loadMermaid>>) {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: "strict",
+        theme: "base",
+        themeVariables: themeVariables()
+      });
+    }
+
+    function prepareBlocks() {
+      document.querySelectorAll<HTMLPreElement>('pre[data-language="mermaid"]').forEach((block) => {
+        const source = block.textContent?.trim();
+        if (!source) return;
+
+        const diagram = document.createElement("div");
+        diagram.className = "mermaid-diagram";
+        diagram.dataset.mermaidSource = source;
+        block.replaceWith(diagram);
+      });
+    }
+
+    async function renderDiagram(mermaid: Awaited<ReturnType<typeof loadMermaid>>, diagram: HTMLElement) {
+      const source = diagram.dataset.mermaidSource;
+      if (!source) return;
+
+      try {
+        const { svg } = await mermaid.render(`mermaid-${++renderId}`, source);
+        diagram.classList.remove("mermaid-diagram-error");
+        diagram.innerHTML = svg;
+      } catch (error) {
+        diagram.classList.add("mermaid-diagram-error");
+        diagram.textContent = source;
+        console.error("Mermaid render failed", error);
+      }
+    }
+
+    async function renderMermaid() {
+      renderQueued = false;
+      prepareBlocks();
+
+      const diagrams = Array.from(document.querySelectorAll<HTMLElement>("[data-mermaid-source]"));
+      if (diagrams.length === 0) return;
+
+      const mermaid = await loadMermaid();
+      initializeMermaid(mermaid);
+      await Promise.all(diagrams.map((diagram) => renderDiagram(mermaid, diagram)));
+    }
+
+    function queueRender() {
+      if (renderQueued) return;
+      renderQueued = true;
+      requestAnimationFrame(() => void renderMermaid());
+    }
+
+    const win = window as Window & { __writingMermaidBound?: boolean };
+
+    if (!win.__writingMermaidBound) {
+      win.__writingMermaidBound = true;
+      queueRender();
+      document.addEventListener("astro:page-load", queueRender);
+
+      new MutationObserver(queueRender).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
+      });
+    }
+  </script>
 </BaseLayout>

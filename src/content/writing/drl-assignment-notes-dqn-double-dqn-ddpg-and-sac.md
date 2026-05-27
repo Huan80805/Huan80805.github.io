@@ -1,5 +1,5 @@
 ---
-title: "Assignment 2: DQN, Double DQN, DDPG, and SAC"
+title: "DQN, Double DQN, DDPG, and SAC"
 date: 2026-02-25
 type: note
 tags:

@@ -1,5 +1,5 @@
 ---
-title: "Assignment 4: Inverse RL & GRPO"
+title: "Inverse RL & GRPO"
 date: 2026-02-25
 type: note
 tags:
@@ -49,7 +49,7 @@ $$
 $$
 
 
-[[2]](#ref-2): for a policy $\pi$ to be guaranteed to perform as well as the expert $\pi^*$, it suffices that the feature expectations match, that is:
+For a policy $\pi$ to be guaranteed to perform as well as the expert $\pi^*$, it suffices that the feature expectations match ([2](#ref-2)), that is:
 
 
 $$
@@ -69,7 +69,7 @@ $$
 ### Maximum Entropy IRL
 
 
-There are infinitely many reward functions that could explain the expert’s behavior. To solve this, [Maximum Entropy IRL](/35f9b623876680bdb819f2c0dcef021c#35f9b6238766805091c7e32e3c40e1b3) additionally incorporates the principle of maximum entropy: 
+There are infinitely many reward functions that could explain the expert’s behavior. To solve this, Maximum entropy RL additionally incorporates the principle of maximum entropy ([1](#ref-1)): 
 
 > _Out of all the reward functions that match the expert's features, we want to pick the one that results in the most random, highest-entropy trajectory distribution. This is a mathematical way of saying, "We shouldn't make any extra assumptions about the expert's behavior beyond what we actually saw them do."_
 
@@ -312,7 +312,7 @@ Formal KL Divergence requires an expectation over all possible sequences: $\math
 DeepSeekMath Robust Estimator
 
 
-Instead of log-prob difference ($\log \frac{\pi_\theta(o_t \mid q, o_{<t})}{\pi_\text{ref}(o_t \mid q, o_{<t})}$), which can sometimes be negative and accidentally _reward_ drift, [[3]](#ref-3)  introduces a strictly non-negative robust estimator for KL divergence (strictly punishing the policy whenever deviating from the reference model):
+Instead of log-prob difference ($\log \frac{\pi_\theta(o_t \mid q, o_{<t})}{\pi_\text{ref}(o_t \mid q, o_{<t})}$), which can sometimes be negative and accidentally _reward_ drift, [[3] Shao, Zhihong, Peiyi Wang, Qihao Zhu, Runxin Xu, Jun-Mei Song, Mingchuan Zhang, Y. K. Li, Yu Wu and Daya Guo. “DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models.” ArXiv abs/2402.03300 (2024): n. pag.](https://www.notion.so/35f9b623876680bdb819f2c0dcef021c#3659b623876680f0adedea6515a45404)  introduces a strictly non-negative robust estimator for KL divergence (strictly punishing the policy whenever deviating from the reference model):
 
 
 $$

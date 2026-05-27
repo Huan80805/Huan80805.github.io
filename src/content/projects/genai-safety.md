@@ -22,18 +22,24 @@ links: []
 
 ## Overview
 
-This project, funded by Taiwan's National Institute of Cyber Security, evaluates the safety and security of Taiwanese LLMs including TAIDE and Taiwan-LLM. The framework has two main components: building safeguard models for detecting harmful generations, and automatic red-teaming to probe model vulnerabilities.
+This project, funded by Taiwan's National Institute of Cyber Security, evaluates the safety and security of Taiwanese LLMs including TAIDE and Taiwan-LLM. The framework has two connected tracks: localized safety evaluators for detecting harmful generations, and automatic red-teaming for finding model vulnerabilities.
 
-<div class="sized" style="--w: 70%">
+<div class="half">
   <figure>
     <img src="/assets/images/genaiSafety/pipeline.png"/>
-    <figcaption>End-to-end project pipeline: safeguard model training and automatic red-teaming for Taiwanese LLMs.</figcaption>
+    <figcaption>Our data collection pipeline for training safety evaluator / toxicity detector in "Taiwanese"</figcaption>
   </figure>
 </div>
 
+## My contribution
+
+- Built large-scale data collection, processing, and validation pipelines for localized safety evaluation data.
+- Fine-tuned XLM-R as a localized toxicity and safety evaluator for Taiwanese Chinese LLM outputs.
+- Developed black-box and white-box adversarial attack workflows to stress-test target LLMs.
+
 ## Safeguard models
 
-Open-source safeguard models like LlamaGuard and ShieldLM are insensitive to culturally specific taboos and local expressions in Taiwanese Chinese. To address this, we built a localized safeguard model trained on data from three sources:
+Open-source safeguard models like LlamaGuard and ShieldLM can miss culturally specific taboos, local expressions, and Taiwanese Chinese usage patterns. To address this, we trained localized evaluators on data from three sources:
 
 - Toxic comments crawled from Taiwanese online forums, semi-auto labeled.
 - Existing human-LLM conversation data translated into Traditional Chinese, from Anthropic hh-rlhf and ShieldLM training sets.
@@ -54,7 +60,7 @@ Our model outperformed LlamaGuard by F1 +0.14 on flagging harmful generations fr
 
 ## Automatic red-teaming
 
-**Black-box attacks:** We used RL to fine-tune an attacker model against a victim LLM with no gradient access. The safeguard model provides reward signals to guide the attacker toward more effective adversarial prompts over training.
+**Black-box attacks:** We used RL to fine-tune an attacker model against a victim LLM with no gradient access. The safeguard evaluator provided reward signals that pushed the attacker toward prompts more likely to expose harmful behavior.
 
 
 <figure class="half">
@@ -62,7 +68,7 @@ Our model outperformed LlamaGuard by F1 +0.14 on flagging harmful generations fr
     <figcaption>Black-box red-teaming framework: RL-based attacker fine-tuned with safeguard model reward to generate adversarial prompts.</figcaption>
 </figure>
 
-**White-box attacks:** Following GCG, we optimize an adversarial suffix using the victim's gradients to force harmful outputs. We added a language modeling loss on top of GCG's original objective to generate more coherent and natural-sounding suffixes.
+**White-box attacks:** Following GCG, we optimized adversarial suffixes with access to the victim model's gradients. We added a language modeling loss on top of GCG's original objective so the generated suffixes were more coherent and natural-sounding.
 
 <figure class="half">
     <img src="/assets/images/genaiSafety/red_white.png"/>
@@ -70,5 +76,7 @@ Our model outperformed LlamaGuard by F1 +0.14 on flagging harmful generations fr
 </figure>
 
 ## Demo
+
+The deployed internal demo is no longer accessible, but the recording below shows how evaluator outputs were exposed for inspection during the project.
 
 <video src="/assets/images/genaiSafety/sg_demo.mov" controls class="half" style="width:80%"></video>

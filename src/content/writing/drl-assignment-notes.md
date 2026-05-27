@@ -6,6 +6,6 @@ tags:
   - RL
 ---
 
-- [Assignment 2: DQN, Double DQN, DDPG, and SAC](/writing/drl-assignment-notes-assignment-2-dqn-double-dqn-ddpg-and-sac)
-- [Assignment 3: Model-Based RL with Deterministic, Stochastic, and Ensemble Dynamics](/writing/drl-assignment-notes-assignment-3-model-based-rl-with-deterministic-stochastic-and-ensemble-dynamics)
-- [Assignment 4: Inverse RL & GRPO](/writing/drl-assignment-notes-assignment-4-inverse-rl-grpo)
+- [DQN, Double DQN, DDPG, and SAC](/writing/drl-assignment-notes-dqn-double-dqn-ddpg-and-sac)
+- [Model-Based RL with Deterministic, Stochastic, and Ensemble Dynamics](/writing/drl-assignment-notes-model-based-rl-with-deterministic-stochastic-and-ensemble-dynamics)
+- [Inverse RL & GRPO](/writing/drl-assignment-notes-inverse-rl-grpo)

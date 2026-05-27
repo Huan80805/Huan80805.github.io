@@ -124,19 +124,62 @@ function fixTOC(md) {
   return md.replace("<!--TOC-->", toc).replaceAll("<!--TOC-->", "");
 }
 
-// Notion mention links render as [[N] full citation title](notion-url).
-// Convert to [[N]](#ref-N) so they link to the local References section,
-// and add <span id="ref-N"> anchors to each [N] entry in that section.
+// Convert plain numeric citations like [1] into local reference links,
+// e.g. ([1](#ref-1)), and anchor matching entries in the References section.
 function fixCitations(md) {
-  md = md.replace(
-    /\[\[(\d+)\][^\]]*\]\(https:\/\/www\.notion\.so\/[^)]+\)/g,
-    (_, n) => `[[${n}]](#ref-${n})`
+  const refHeading = md.match(/^#{1,6}\s+References?\s*$/im);
+  if (!refHeading) return md;
+
+  const body = md.slice(0, refHeading.index);
+  const references = md.slice(refHeading.index);
+  const referenceIds = getReferenceIds(references);
+
+  return replaceBodyCitations(body, referenceIds) + anchorReferences(references);
+}
+
+function getReferenceIds(references) {
+  const ids = new Set();
+
+  for (const line of references.split("\n")) {
+    const match = line.match(/^\s*(?:-\s*)?(?:<span id="ref-\d+"><\/span>\s*)?\[(\d+)\]\s+.+/);
+    if (!match) continue;
+    ids.add(match[1]);
+  }
+
+  return ids;
+}
+
+function replaceBodyCitations(body, referenceIds) {
+  let inFence = false;
+
+  return body
+    .split("\n")
+    .map((line) => {
+      if (/^```/.test(line.trim())) {
+        inFence = !inFence;
+        return line;
+      }
+      if (inFence) return line;
+
+      return line.replace(/\[(\d+)\]/g, (full, n, offset, source) => {
+        const previous = source[offset - 1];
+        const next = source[offset + full.length];
+
+        if (!referenceIds.has(n) || previous === "!" || previous === "[" || next === "(" || next === "]") {
+          return full;
+        }
+
+        return `([${n}](#ref-${n}))`;
+      });
+    })
+    .join("\n");
+}
+
+function anchorReferences(references) {
+  return references.replace(
+    /^(\s*(?:-\s*)?)(?:<span id="ref-\d+"><\/span>\s*)?\[(\d+)\]\s+/gm,
+    (_, prefix, n) => `${prefix}<span id="ref-${n}"></span>[${n}] `
   );
-  md = md.replace(
-    /^(\[(\d+)\] )/gm,
-    (_, _full, n) => `<span id="ref-${n}"></span>[${n}] `
-  );
-  return md;
 }
 
 // Strip leading blank quote lines left by empty Notion blocks inside callouts/quotes.

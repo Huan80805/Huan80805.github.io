@@ -111,7 +111,7 @@ So at any time $t$, $x_t$ is just a noisy version of $x_0$. Note that when we ch
 
 If we can reverse the above forward process and sample from $q(x_{t-1} \mid x_t)$, we will be able to recreate the true sample from a Gaussian noise input. Unfortunately, we cannot easily estimate  because it needs to use the entire dataset and therefore we need to learn a model $p_\theta$ to approximate these conditional probabilities.
 
-> The forward noise levels $\beta_t$ are either fixed or learnable. A nice property is that when $\beta_t$ is small (which is usually the case in diffusion models), the reverse conditional $q(x_{t-1} \mid x_t)$ will have the same functional form of $q(x_{t} \mid x_{t-1})$, i.e. Gaussian (see 2.2 of [[3]](#ref-3) ). Under this assumption, modeling the reverse denoising step as Gaussian (i.e. choosing the functional form of $p_\theta(x_{t-1}\mid x_t)$ as Gaussians) is justified because the true reverse dynamics of a small Gaussian corruption are themselves approximately Gaussian.
+> The forward noise levels $\beta_t$ are either fixed or learnable. A nice property is that when $\beta_t$ is small (which is usually the case in diffusion models), the reverse conditional $q(x_{t-1} \mid x_t)$ will have the same functional form of $q(x_{t} \mid x_{t-1})$, i.e. Gaussian (see 2.2 of [[3] Sohl-Dickstein, J., Weiss, E., Maheswaranathan, N. & Ganguli, S.. (2015). Deep Unsupervised Learning using Nonequilibrium Thermodynamics. Proceedings of the 32nd International Conference on Machine Learning](https://www.notion.so/33a9b6238766800f97a5c4f826baecd1#33a9b62387668060aa85ee012ad57832) ). Under this assumption, modeling the reverse denoising step as Gaussian (i.e. choosing the functional form of $p_\theta(x_{t-1}\mid x_t)$ as Gaussians) is justified because the true reverse dynamics of a small Gaussian corruption are themselves approximately Gaussian.
 >
 
 $p_\theta$ learns a reverse Markov chain: $p_\theta(x_{t-1}\mid x_t)$, typically parameterized as a Gaussian:
@@ -136,7 +136,7 @@ $$
 ### _Variational lower bound_
 
 
-([[1]](#ref-1) )
+([[1] Weng, Lilian. (Jul 2021). What are diffusion models? Lil’Log. https://lilianweng.github.io/posts/2021-07-11-diffusion-models/.](https://www.notion.so/33a9b6238766800f97a5c4f826baecd1#33a9b6238766800298d7df24350bd191) )
 
 
 We want to maximize the evidence across whole data distribution, i.e. maximize $\mathbb{E}_{q(x_0)} \log p_\theta(x_0)$
@@ -163,7 +163,7 @@ $$
 $$
 
 
-Further reduce the variational lower bound: ([[2]](#ref-2) )
+Further reduce the variational lower bound: ([[2] Jonathan Ho, Ajay Jain, and Pieter Abbeel. 2020. Denoising diffusion probabilistic models. In Proceedings of the 34th International Conference on Neural Information Processing Systems (NIPS '20)](https://www.notion.so/33a9b6238766800f97a5c4f826baecd1#33a9b623876680f585ebffd4f7749cd1) )
 
 
 $$
